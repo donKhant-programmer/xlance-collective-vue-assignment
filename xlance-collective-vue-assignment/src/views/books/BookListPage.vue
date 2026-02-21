@@ -86,7 +86,7 @@
   </template>
   
   <script setup lang="ts">
-  import { onMounted, ref, computed } from 'vue'
+  import { ref, computed, onMounted } from 'vue'
   import { BookService } from '@/services/BookService'
   import type { Book } from '@/models/book'
   import { Plus, Pencil, Trash2 } from 'lucide-vue-next'
@@ -94,9 +94,11 @@
   const books = ref<Book[]>([])
   const search = ref('')
   
-  onMounted(async () => {
+  const loadBooks = async () => {
     books.value = await BookService.getAll()
-  })
+  }
+  
+  onMounted(() => loadBooks())
   
   const filteredBooks = computed(() =>
     books.value.filter(b =>

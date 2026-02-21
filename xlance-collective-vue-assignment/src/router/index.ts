@@ -11,8 +11,17 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/books',
-    name: 'books',
     component: BooksView,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/books/BookListPage.vue'),
+      },
+      {
+        path: 'add',
+        component: () => import('@/views/books/AddBookPage.vue'),
+      },
+    ],
   },
   {
     path: '/authors',

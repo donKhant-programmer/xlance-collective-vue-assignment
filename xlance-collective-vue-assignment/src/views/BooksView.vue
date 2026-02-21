@@ -1,7 +1,11 @@
 <template>
-  <BookListPage />
+  <!-- Acts as the layout for all book-related pages -->
+  <div class="flex flex-col">
+    <!-- Child pages render here -->
+    <router-view />
+  </div>
 </template>
 
 <script setup lang="ts">
-import BookListPage from '@/views/books/BookListPage.vue'
+// No imports needed unless you add shared layout or props
 </script>

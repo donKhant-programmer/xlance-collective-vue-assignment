@@ -1,26 +1,18 @@
+// services/BookService.ts
 import type { Book } from '@/models/book'
 
-const books: Book[] = [
-  {
-    id: 1,
-    title: 'The Great Gatsby',
-    author: 'F. Scott Fitzgerald',
-    category: 'Classic',
-    year: 1925,
-    status: 'AVAILABLE',
-  },
-  {
-    id: 2,
-    title: '1984',
-    author: 'George Orwell',
-    category: 'Dystopian',
-    year: 1949,
-    status: 'BORROWED',
-  },
+let books: Book[] = [
+  { id: 1, title: 'The Great Gatsby', year: 1925, author: 'F. Scott Fitzgerald', category: 'Classic', status: 'AVAILABLE' },
+  { id: 2, title: 'Pride and Prejudice', year: 1813, author: 'Jane Austen', category: 'Romance', status: 'BORROWED' },
 ]
 
-export const BookService = {
-  getAll(): Promise<Book[]> {
-    return Promise.resolve(books)
-  },
+export class BookService {
+  static async getAll(): Promise<Book[]> {
+    return books
+  }
+
+  static async add(book: Book): Promise<void> {
+    book.id = books.length + 1
+    books.push(book)
+  }
 }

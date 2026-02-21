@@ -1,8 +1,9 @@
+// models/book.ts
 export interface Book {
-    id: number
-    title: string
-    author: string
-    category: string
-    year: number
-    status: 'AVAILABLE' | 'BORROWED'
-  }
+  id: number
+  title: string
+  year: number
+  author: string
+  category: string
+  status: 'AVAILABLE' | 'BORROWED'
+}
