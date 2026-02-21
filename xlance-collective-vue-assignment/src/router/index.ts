@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
-import HomeView from '@/views/HomeView.vue'
 import BooksView from '@/views/BooksView.vue'
 import AuthorsView from '@/views/AuthorsView.vue'
 import CategoriesView from '@/views/CategoriesView.vue'
@@ -8,8 +7,7 @@ import CategoriesView from '@/views/CategoriesView.vue'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView,
+    redirect: '/books',
   },
   {
     path: '/books',
