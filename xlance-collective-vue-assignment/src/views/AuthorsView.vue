@@ -1,5 +1,10 @@
 <template>
-    <section>
-      <h2 class="text-2xl font-semibold text-gray-800">Authors</h2>
-    </section>
-  </template>
+  <!-- Acts as layout for all author-related pages -->
+  <div class="flex flex-col">
+    <router-view />
+  </div>
+</template>
+
+<script setup lang="ts">
+// layout only
+</script>
