@@ -31,7 +31,7 @@
         </button>
 
         <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-slate-700">
-          <img src="../../assets/profile.png" class="w-full h-full object-cover" />
+          <img src="/images/profile.png" class="w-full h-full object-cover" />
         </div>
 
       </div>

@@ -51,14 +51,21 @@
         >
   
           <!-- TITLE -->
-          <div class="flex items-center gap-3">
-            <div class="h-14 w-10 rounded bg-slate-800 border border-slate-700" />
-  
-            <div>
-              <p class="text-slate-100 text-sm">{{ book.title }}</p>
-              <p class="text-slate-500 text-xs">Pub. {{ book.year }}</p>
-            </div>
-          </div>
+<div class="flex items-center gap-3">
+  <div class="h-14 w-10 rounded overflow-hidden border border-slate-700 bg-slate-800">
+    <img 
+      v-if="book.coverImageUrl" 
+      :src="book.coverImageUrl" 
+      alt="cover" 
+      class="h-full w-full object-cover"
+    />
+  </div>
+
+  <div>
+    <p class="text-slate-100 text-sm">{{ book.title }}</p>
+    <p class="text-slate-500 text-xs">Pub. {{ book.year }}</p>
+  </div>
+</div>
   
           <span class="text-slate-300 text-sm">{{ book.author }}</span>
   
@@ -75,8 +82,16 @@
           </span>
   
           <div class="flex gap-2 text-slate-400">
-            <Pencil :size="18" class="cursor-pointer" />
-            <Trash2 :size="18" class="cursor-pointer" />
+            <Pencil
+  :size="18"
+  class="cursor-pointer"
+  @click="$router.push(`/books/edit/${book.id}`)"
+/>
+            <Trash2
+  :size="18"
+  class="cursor-pointer"
+  @click="removeBook(book.id)"
+/>
           </div>
   
         </div>
@@ -97,6 +112,11 @@
   const loadBooks = async () => {
     books.value = await BookService.getAll()
   }
+
+  const removeBook = async (id: number) => {
+  await BookService.delete(id)
+  await loadBooks()
+}
   
   onMounted(() => loadBooks())
   

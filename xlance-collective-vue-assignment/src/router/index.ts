@@ -21,12 +21,29 @@ const routes: RouteRecordRaw[] = [
         path: 'add',
         component: () => import('@/views/books/AddBookPage.vue'),
       },
+      {
+        path: 'edit/:id',
+        component: () => import('@/views/books/EditBookPage.vue'),
+      }
     ],
   },
   {
     path: '/authors',
-    name: 'authors',
     component: AuthorsView,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/authors/AuthorListPage.vue'),
+      },
+      {
+        path: 'add',
+        component: () => import('@/views/authors/AddAuthorPage.vue'),
+      },
+      // {
+      //   path: 'edit/:id',
+      //   component: () => import('@/views/authors/EditAuthorPage.vue'),
+      // }
+    ]
   },
   {
     path: '/categories',
