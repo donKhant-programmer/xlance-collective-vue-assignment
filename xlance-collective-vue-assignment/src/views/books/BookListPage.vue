@@ -67,10 +67,10 @@
   </div>
 </div>
   
-          <span class="text-slate-300 text-sm">{{ book.author }}</span>
+          <span class="text-slate-300 text-sm">{{ getAuthorName(book.authorId) }}</span>
   
           <span class="w-fit rounded bg-indigo-200 px-2 py-1 text-xs font-medium text-indigo-500">
-            {{ book.category }}
+            {{ getCategoryName(book.categoryId) }}
           </span>
   
           <span
@@ -105,6 +105,16 @@
   import { BookService } from '@/services/BookService'
   import type { Book } from '@/models/book'
   import { Plus, Pencil, Trash2 } from 'lucide-vue-next'
+  import { CategoryService } from '@/services/CategoryService'
+import type { Category } from '@/models/category'
+import type { Author } from '@/models/author'
+import { AuthorService } from '@/services/AuthorService'
+
+const authors = ref<Author[]>([])
+const categories = ref<Category[]>([])
+
+  const getCategoryName = (id: number) =>
+  categories.value.find(c => c.id === id)?.name || 'Unknown'
   
   const books = ref<Book[]>([])
   const search = ref('')
@@ -118,13 +128,24 @@
   await loadBooks()
 }
   
-  onMounted(() => loadBooks())
+onMounted(async () => {
+  books.value = await BookService.getAll()
+  categories.value = await CategoryService.getAll()
+  authors.value = await AuthorService.getAll()
+})
   
-  const filteredBooks = computed(() =>
-    books.value.filter(b =>
-      (b.title + b.author + b.category)
-        .toLowerCase()
-        .includes(search.value.toLowerCase())
+const filteredBooks = computed(() =>
+  books.value.filter(b =>
+    (
+      b.title +
+      getAuthorName(b.authorId) +
+      getCategoryName(b.categoryId)
     )
+      .toLowerCase()
+      .includes(search.value.toLowerCase())
   )
+)
+
+const getAuthorName = (id: number) =>
+  authors.value.find(a => a.id === id)?.name || 'Unknown'
   </script>

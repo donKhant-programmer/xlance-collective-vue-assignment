@@ -36,7 +36,7 @@
       <div class="overflow-hidden rounded-lg border border-slate-800">
   
         <!-- HEADER -->
-        <div class="grid grid-cols-[2fr_1fr_1.3fr_auto] bg-slate-900 text-xs text-slate-400 px-6 py-4">
+        <div class="grid grid-cols-[2fr_1.3fr_1.3fr_140px] bg-slate-900 text-xs text-slate-400 px-6 py-4">
   <span>Author</span>
 
   <span>Nationality</span>
@@ -50,7 +50,7 @@
         <div
   v-for="author in filteredAuthors"
   :key="author.id"
-  class="grid grid-cols-[2fr_1fr_1.3fr_auto] items-center border-t border-slate-800 px-6 py-5 gap-6"
+  class="grid grid-cols-[2fr_1.3fr_1.3fr_140px] items-center border-t border-slate-800 px-6 py-5 gap-6"
 >
   
           <!-- AUTHOR COLUMN -->
@@ -95,16 +95,16 @@
           </div>
   
           <!-- CATALOG SIZE -->
-          <div class="space-y-2">
+          <div class="flex items-center gap-4">
   
             <span class="text-sm font-medium text-white">
-              {{ author.catalog }} Books
+              {{ getCatalogSize(author.id) }} Books
             </span>
   
-            <div class="h-[6px] w-full bg-[#1E293B] rounded">
+            <div class="h-[6px] flex-1 bg-[#1E293B] rounded">
               <div
                 class="h-[6px] bg-[#137FEC] rounded"
-                :style="{ width: getCatalogPercent(author.catalog) + '%' }"
+                :style="{ width: getCatalogPercent(getCatalogSize(author.id)) + '%' }"
               />
             </div>
   
@@ -135,9 +135,18 @@ import { ref, computed, onMounted } from 'vue'
 import { Plus, Pencil, Trash2 } from 'lucide-vue-next'
 import { AuthorService } from '@/services/AuthorService'
 import type { Author } from '@/models/author'
+import type { Book } from '@/models/book'
+import { BookService } from '@/services/BookService'
 
 const search = ref('')
 const authors = ref<Author[]>([])
+
+const books = ref<Book[]>([])
+
+onMounted(async () => {
+  await loadAuthors()
+  books.value = await BookService.getAll()
+})
 
 const loadAuthors = async () => {
   authors.value = await AuthorService.getAll()
@@ -147,8 +156,6 @@ const removeAuthor = async (id: number) => {
   await AuthorService.delete(id)
   await loadAuthors()
 }
-
-onMounted(loadAuthors)
 
 const filteredAuthors = computed(() =>
   authors.value.filter(a =>
@@ -166,6 +173,15 @@ const getInitials = (name: string) =>
     .join('')
     .toUpperCase()
 
-const getCatalogPercent = (size: number) =>
-  Math.min(size * 10, 100)
+    const getCatalogPercent = (size: number) =>
+    (size / maxCatalogSize.value) * 100
+
+  const maxCatalogSize = computed(() =>
+  Math.max(...books.value.map(b => b.authorId
+    ? getCatalogSize(b.authorId)
+    : 0), 1)
+)
+  
+  const getCatalogSize = (authorId: number) =>
+  books.value.filter(b => b.authorId === authorId).length
 </script>

@@ -49,9 +49,9 @@
                 class="absolute inset-0 w-full h-full object-cover"
               />
   
-              <div v-else class="text-center text-[#92ADC9] text-sm">
+              <div v-else class="text-center text-[#507A9E] text-xs font-normal">
                 Click to upload or drag & drop<br />
-                PNG, JPG
+                PNG, JPG (MAX. 800x800px)
               </div>
   
               <input
@@ -114,7 +114,7 @@
           </div>
   
           <!-- BUTTONS -->
-          <div class="flex justify-end gap-4 pt-4">
+          <div class="flex justify-end items-center gap-4 pt-4">
             <RouterLink to="/authors" class="text-[#94A3B8] text-sm font-medium">
               Cancel
             </RouterLink>

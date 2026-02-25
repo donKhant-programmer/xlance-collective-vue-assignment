@@ -72,17 +72,32 @@
 
       <!-- Row 2 -->
       <div class="flex gap-6">
-        <select v-model="form.author" class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white">
-          <option disabled value="">Select an author...</option>
-          <option>F. Scott Fitzgerald</option>
-          <option>Jane Austen</option>
-        </select>
+        <select
+  v-model="form.authorId"
+  class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+>
+  <option disabled :value="null">Select an author...</option>
 
-        <select v-model="form.category" class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white">
-          <option disabled value="">Select a category...</option>
-          <option>Classic</option>
-          <option>Romance</option>
-        </select>
+  <option
+    v-for="author in authors"
+    :key="author.id"
+    :value="author.id"
+  >
+    {{ author.name }}
+  </option>
+</select>
+
+        <select v-model="form.categoryId" class="flex-1  bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white">
+  <option disabled :value="null">Select a category...</option>
+
+  <option
+    v-for="cat in categories"
+    :key="cat.id"
+    :value="cat.id"
+  >
+    {{ cat.name }}
+  </option>
+</select>
       </div>
 
       <!-- Row 3 -->
@@ -110,10 +125,25 @@
   </template>
   
   <script setup lang="ts">
-import { reactive, ref } from 'vue'
+// import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import { BookService } from '@/services/BookService'
 import type { BookStatus } from '@/models/book'
+import { onMounted, reactive, ref } from 'vue'
+import { CategoryService } from '@/services/CategoryService'
+import type { Category } from '@/models/category'
+
+import { AuthorService } from '@/services/AuthorService'
+import type { Author } from '@/models/author'
+
+const authors = ref<Author[]>([])
+
+onMounted(async () => {
+  categories.value = await CategoryService.getAll()
+  authors.value = await AuthorService.getAll()
+})
+
+const categories = ref<Category[]>([])
 
 const router = useRouter()
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -121,8 +151,8 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const form = reactive({
   title: '',
   year: null as number | null,
-  author: '',
-  category: '',
+  authorId: null as number | null,
+  categoryId: null as number | null,
   status: 'AVAILABLE' as BookStatus,
   description: '',
   coverImage: null as File | null,
@@ -158,21 +188,18 @@ const setFile = (file: File) => {
 
 // Submit form
 const submitForm = async () => {
-  if (!form.title || !form.year || !form.author || !form.category) return
+  if (!form.title || !form.year || !form.authorId || !form.categoryId) return
 
-  // Prepare book object
-  const bookData = {
-    id: 0,
-    title: form.title,
-    year: form.year,
-    author: form.author,
-    category: form.category,
-    status: form.status,
-    description: form.description,
-    coverImage: form.coverImage // you can upload this file to server
-  }
-
-  await BookService.add(bookData)
+  await BookService.add({
+  id: 0,
+  title: form.title,
+  year: form.year,
+  authorId: form.authorId,
+  categoryId: form.categoryId,
+  status: form.status,
+  description: form.description,
+  ...(form.coverImage ? { coverImage: form.coverImage } : {})
+})
 
   router.push('/books')
 }

@@ -3,7 +3,7 @@
 
     <AppNavbar />
 
-    <main class="flex-1 px-6 py-6">
+    <main class="flex-1 px-40 py-0">
       <router-view />
     </main>
 

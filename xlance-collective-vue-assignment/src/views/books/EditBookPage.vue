@@ -67,20 +67,37 @@
           <input v-model="form.year" type="number" placeholder="e.g. 1925" class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white" />
         </div>
 
-        <!-- Row 2 -->
         <div class="flex gap-6 flex-wrap">
-          <select v-model="form.author" class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white">
-            <option disabled value="">Select an author...</option>
-            <option>F. Scott Fitzgerald</option>
-            <option>Jane Austen</option>
-          </select>
+  <!-- Author -->
+  <select
+    v-model="form.authorId"
+    class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+  >
+    <option disabled :value="null">Select an author...</option>
+    <option
+      v-for="author in authors"
+      :key="author.id"
+      :value="author.id"
+    >
+      {{ author.name }}
+    </option>
+  </select>
 
-          <select v-model="form.category" class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white">
-            <option disabled value="">Select a category...</option>
-            <option>Classic</option>
-            <option>Romance</option>
-          </select>
-        </div>
+  <!-- Category -->
+  <select
+    v-model="form.categoryId"
+    class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+  >
+    <option disabled :value="null">Select a category...</option>
+    <option
+      v-for="cat in categories"
+      :key="cat.id"
+      :value="cat.id"
+    >
+      {{ cat.name }}
+    </option>
+  </select>
+</div>
 
         <!-- Row 3 -->
         <select v-model="form.status" class="bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white">
@@ -127,6 +144,14 @@ import { useRoute, useRouter, RouterLink } from 'vue-router'
 import { BookService } from '@/services/BookService'
 import type { Book, BookStatus } from '@/models/book'
 import { CircleCheck } from 'lucide-vue-next';
+import { AuthorService } from '@/services/AuthorService';
+import { CategoryService } from '@/services/CategoryService';
+import type { Category } from '@/models/category';
+import type { Author } from '@/models/author';
+
+const authors = ref<Author[]>([])
+
+const categories = ref<Category[]>([])
 
 const router = useRouter()
 const route = useRoute()
@@ -136,8 +161,8 @@ const form = reactive({
   id: 0,
   title: '',
   year: null as number | null,
-  author: '',
-  category: '',
+  authorId: null as number | null,
+  categoryId: null as number | null,
   status: 'AVAILABLE' as BookStatus,
   description: '',
   coverImage: null as File | null,
@@ -148,8 +173,16 @@ onMounted(async () => {
   const book = await BookService.getById(Number(route.params.id))
   if (book) {
     Object.assign(form, book)
-    form.coverImageUrl = book.coverImageUrl || '' // existing cover image
+
+    // Make sure IDs are set, not names
+    form.authorId = book.authorId
+    form.categoryId = book.categoryId
+    form.coverImageUrl = book.coverImageUrl || ''
   }
+
+  // Load authors & categories
+  authors.value = await AuthorService.getAll()
+  categories.value = await CategoryService.getAll()
 })
 
 // File picker
@@ -171,19 +204,19 @@ const setFile = (file: File) => {
 
 // Submit
 const submitForm = async () => {
-  if (!form.title || !form.year || !form.author || !form.category) return
+  if (!form.title || !form.year || !form.authorId || !form.categoryId) return
 
   // Only include coverImage if it's a valid File
   const updatedBook: Book & { coverImage?: File } = {
-    id: form.id,
-    title: form.title,
-    year: form.year,
-    author: form.author,
-    category: form.category,
-    status: form.status,
-    description: form.description,
-    ...(form.coverImage instanceof File ? { coverImage: form.coverImage } : {})
-  }
+  id: form.id,
+  title: form.title,
+  year: form.year,
+  authorId: form.authorId,
+  categoryId: form.categoryId,
+  status: form.status,
+  description: form.description,
+  ...(form.coverImage instanceof File ? { coverImage: form.coverImage } : {})
+}
 
   await BookService.update(updatedBook)
   router.push('/books')

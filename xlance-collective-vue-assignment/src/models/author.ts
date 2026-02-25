@@ -4,6 +4,8 @@ export interface Author {
   nationality: string
   genre: string
   catalog: number
+  dob?: string
   biography?: string
   imageUrl?: string
+  updatedAt?: string
 }

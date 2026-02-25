@@ -4,9 +4,9 @@ export interface Book {
   id: number
   title: string
   year: number
-  author: string
-  category: string
+  authorId: number  
+  categoryId: number
   status: BookStatus
-  description?: string           // Book summary
-  coverImageUrl?: string        // URL of cover image (existing or uploaded)
+  description?: string
+  coverImageUrl?: string
 }

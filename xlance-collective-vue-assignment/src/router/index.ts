@@ -39,16 +39,28 @@ const routes: RouteRecordRaw[] = [
         path: 'add',
         component: () => import('@/views/authors/AddAuthorPage.vue'),
       },
-      // {
-      //   path: 'edit/:id',
-      //   component: () => import('@/views/authors/EditAuthorPage.vue'),
-      // }
+      { path: 'edit/:id', component: () => import('@/views/authors/EditAuthorPage.vue'), }
+      
     ]
   },
   {
     path: '/categories',
     name: 'categories',
     component: CategoriesView,
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/categories/CategoryListPage.vue'),
+      },
+      {
+        path: 'add',
+        component: () => import('@/views/categories/AddCategoryPage.vue'),
+      },
+      {
+        path: 'edit/:id',
+        component: () => import('@/views/categories/EditCategoryPage.vue'),
+      }     
+    ]
   },
 ]
 
