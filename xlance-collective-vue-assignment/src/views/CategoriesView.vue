@@ -8,5 +8,5 @@
 </template>
 
 <script setup lang="ts">
-// No imports needed unless you want to add shared layout, navigation, or props
+  // No imports needed unless you want to add shared layout, navigation, or props
 </script>

@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
-import BooksView from '@/views/BooksView.vue'
-import AuthorsView from '@/views/AuthorsView.vue'
-import CategoriesView from '@/views/CategoriesView.vue'
+import BooksView from '@/views/BooksView.vue';
+import AuthorsView from '@/views/AuthorsView.vue';
+import CategoriesView from '@/views/CategoriesView.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'edit/:id',
         component: () => import('@/views/books/EditBookPage.vue'),
-      }
+      },
     ],
   },
   {
@@ -39,9 +39,8 @@ const routes: RouteRecordRaw[] = [
         path: 'add',
         component: () => import('@/views/authors/AddAuthorPage.vue'),
       },
-      { path: 'edit/:id', component: () => import('@/views/authors/EditAuthorPage.vue'), }
-      
-    ]
+      { path: 'edit/:id', component: () => import('@/views/authors/EditAuthorPage.vue') },
+    ],
   },
   {
     path: '/categories',
@@ -59,14 +58,14 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'edit/:id',
         component: () => import('@/views/categories/EditCategoryPage.vue'),
-      }     
-    ]
+      },
+    ],
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
-})
+});
 
-export default router
+export default router;

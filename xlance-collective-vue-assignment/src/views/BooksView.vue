@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-// No imports needed unless you add shared layout or props
+  // No imports needed unless you add shared layout or props
 </script>
