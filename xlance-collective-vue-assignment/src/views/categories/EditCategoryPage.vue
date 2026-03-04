@@ -108,7 +108,9 @@
     active: true,
   });
 
-  onMounted(async () => {
+  onMounted(loadData);
+
+  const loadData = async () => {
     try {
       const id = Number(route.params.id);
       form.value = await CategoryService.getById(id);
@@ -117,7 +119,7 @@
     } finally {
       loading.value = false;
     }
-  });
+  }
 
   const updateCategory = async () => {
     if (!form.value.name) return;

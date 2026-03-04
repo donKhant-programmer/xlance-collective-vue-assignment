@@ -90,7 +90,7 @@
   const search = ref('');
   const categories = ref<Category[]>([]);
 
-  const loadCategories = async () => {
+  const loadData = async () => {
     categories.value = await CategoryService.getAll();
   };
 
@@ -99,7 +99,7 @@
     await loadCategories();
   };
 
-  onMounted(loadCategories);
+  onMounted(loadData);
 
   const filteredCategories = computed(() =>
     categories.value.filter((c) =>

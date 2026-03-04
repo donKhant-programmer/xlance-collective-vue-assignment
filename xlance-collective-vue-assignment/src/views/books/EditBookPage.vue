@@ -140,7 +140,8 @@
         <!-- Update Book button -->
         <Button
           type="submit"
-          class="flex items-center gap-2 bg-[#137FEC] hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+          class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
+style="background-color: var(--color-blue)"
         >
           Update Book
           <CircleCheck class="w-4 h-4 text-[#137FEC]" />
@@ -181,7 +182,9 @@
     coverImageUrl: '',
   });
 
-  onMounted(async () => {
+  onMounted(loadData);
+
+  const loadData = async () => {
     const book = await BookService.getById(Number(route.params.id));
     if (book) {
       Object.assign(form, book);
@@ -195,7 +198,7 @@
     // Load authors & categories
     authors.value = await AuthorService.getAll();
     categories.value = await CategoryService.getAll();
-  });
+  }
 
   // File picker
   const triggerFilePicker = () => {

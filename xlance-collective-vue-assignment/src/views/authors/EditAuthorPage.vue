@@ -211,8 +211,10 @@
     form.imageUrl = URL.createObjectURL(file);
   };
 
-  onMounted(async () => {
-    const id = Number(route.params.id);
+  onMounted(loadData);
+
+const loadData = async () => {
+  const id = Number(route.params.id);
     const data = await AuthorService.getById(id);
 
     if (!data) return router.push('/authors');
@@ -226,7 +228,7 @@
     form.genre = data.genre || '';
     form.bio = data.biography || '';
     form.imageUrl = data.imageUrl || '';
-  });
+};
 
   const submitForm = async () => {
     if (!form.name || !form.nationality) return;

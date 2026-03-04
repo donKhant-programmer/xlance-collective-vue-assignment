@@ -87,13 +87,13 @@
             v-model="form.title"
             type="text"
             placeholder="e.g. The Great Gatsby"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+            class="flex-1 appearance-none bg-[#111A22] border border-[#324D67] rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-[#137FEC]"
           />
           <input
             v-model="form.year"
             type="number"
             placeholder="e.g. 1925"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+            class="flex-1 appearance-none bg-[#111A22] border border-[#324D67] rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-[#137FEC]"
           />
         </div>
 
@@ -101,7 +101,7 @@
         <div class="flex gap-6">
           <select
             v-model="form.authorId"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+            class="flex-1 appearance-none bg-[#111A22] border border-[#324D67] rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-[#137FEC]"
           >
             <option disabled :value="null">Select an author...</option>
 
@@ -112,7 +112,7 @@
 
           <select
             v-model="form.categoryId"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+            class="flex-1 appearance-none bg-[#111A22] border border-[#324D67] rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-[#137FEC]"
           >
             <option disabled :value="null">Select a category...</option>
 
@@ -121,15 +121,16 @@
             </option>
           </select>
         </div>
+        s
 
         <!-- Row 3 -->
-        <select
-          v-model="form.status"
-          class="bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
-        >
-          <option>AVAILABLE</option>
-          <option>BORROWED</option>
-        </select>
+<select
+  v-model="form.status"
+  class="appearance-none w-full bg-[#111A22] border border-[#324D67] rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-[#137FEC] cursor-pointer"
+>
+  <option>AVAILABLE</option>
+  <option>BORROWED</option>
+</select>
 
         <!-- Description -->
         <div class="flex flex-col gap-2">
@@ -143,13 +144,14 @@
       </div>
 
       <!-- Buttons -->
-      <div class="flex justify-end gap-4">
+      <div class="flex items-center justify-end gap-4">
         <RouterLink to="/books" class="text-[#94A3B8] font-medium text-sm hover:underline"
           >Cancel</RouterLink
         >
         <button
           type="submit"
-          class="flex items-center gap-2 bg-[#137FEC] px-8 py-2 rounded-lg text-white font-medium hover:bg-blue-600 transition-colors"
+          class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
+style="background-color: var(--color-blue)"
         >
           Add to Library
         </button>
@@ -172,10 +174,12 @@
 
   const authors = ref<Author[]>([]);
 
-  onMounted(async () => {
+  onMounted(loadData);
+
+  const loadData = async () => {
     categories.value = await CategoryService.getAll();
     authors.value = await AuthorService.getAll();
-  });
+  }
 
   const categories = ref<Category[]>([]);
 
