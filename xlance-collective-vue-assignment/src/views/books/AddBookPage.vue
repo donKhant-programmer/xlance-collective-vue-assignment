@@ -124,13 +124,13 @@
         s
 
         <!-- Row 3 -->
-<select
-  v-model="form.status"
-  class="appearance-none w-full bg-[#111A22] border border-[#324D67] rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-[#137FEC] cursor-pointer"
->
-  <option>AVAILABLE</option>
-  <option>BORROWED</option>
-</select>
+        <select
+          v-model="form.status"
+          class="appearance-none w-full bg-[#111A22] border border-[#324D67] rounded-xl px-4 py-3 text-white outline-none focus:ring-2 focus:ring-[#137FEC] cursor-pointer"
+        >
+          <option>AVAILABLE</option>
+          <option>BORROWED</option>
+        </select>
 
         <!-- Description -->
         <div class="flex flex-col gap-2">
@@ -151,7 +151,7 @@
         <button
           type="submit"
           class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
-style="background-color: var(--color-blue)"
+          style="background-color: var(--color-blue)"
         >
           Add to Library
         </button>
@@ -177,7 +177,7 @@ style="background-color: var(--color-blue)"
   const loadData = async () => {
     categories.value = await CategoryService.getAll();
     authors.value = await AuthorService.getAll();
-  }
+  };
 
   onMounted(loadData);
 

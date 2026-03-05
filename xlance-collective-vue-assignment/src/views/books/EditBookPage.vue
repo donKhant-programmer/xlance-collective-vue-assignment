@@ -46,17 +46,17 @@
           />
 
           <!-- Show upload content only if no image -->
-<div v-else class="flex flex-col items-center justify-center gap-2 text-center px-4">
-  <img
-    src="/svg/upload-placeholder.svg"
-    alt="Upload Placeholder"
-    class="h-8 w-8 text-[#92ADC9]"
-  />
-  <p class="text-xs text-[#507A9E]">
-    Click to upload or drag & drop<br />
-    PNG, JPG, or SVG (MAX. 800x800px)
-  </p>
-</div>
+          <div v-else class="flex flex-col items-center justify-center gap-2 text-center px-4">
+            <img
+              src="/svg/upload-placeholder.svg"
+              alt="Upload Placeholder"
+              class="h-8 w-8 text-[#92ADC9]"
+            />
+            <p class="text-xs text-[#507A9E]">
+              Click to upload or drag & drop<br />
+              PNG, JPG, or SVG (MAX. 800x800px)
+            </p>
+          </div>
 
           <input
             type="file"
@@ -141,7 +141,7 @@
         <Button
           type="submit"
           class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
-style="background-color: var(--color-blue)"
+          style="background-color: var(--color-blue)"
         >
           Update Book
           <CircleCheck class="w-4 h-4 text-[#137FEC]" />
@@ -182,8 +182,6 @@ style="background-color: var(--color-blue)"
     coverImageUrl: '',
   });
 
-  
-
   const loadData = async () => {
     const book = await BookService.getById(Number(route.params.id));
     if (book) {
@@ -198,7 +196,7 @@ style="background-color: var(--color-blue)"
     // Load authors & categories
     authors.value = await AuthorService.getAll();
     categories.value = await CategoryService.getAll();
-  }
+  };
 
   onMounted(loadData);
 

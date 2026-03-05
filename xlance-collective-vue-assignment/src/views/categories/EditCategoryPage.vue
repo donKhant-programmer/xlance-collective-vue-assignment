@@ -80,7 +80,11 @@
             Discard Changes
           </RouterLink>
 
-          <button type="submit" class="bg-[#137FEC] px-6 py-2 rounded-lg text-white font-medium">
+          <button
+            type="submit"
+            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
+            style="background-color: var(--color-blue)"
+          >
             Update Category
           </button>
         </div>
@@ -108,8 +112,6 @@
     active: true,
   });
 
-  
-
   const loadData = async () => {
     try {
       const id = Number(route.params.id);
@@ -119,7 +121,7 @@
     } finally {
       loading.value = false;
     }
-  }
+  };
 
   onMounted(loadData);
 

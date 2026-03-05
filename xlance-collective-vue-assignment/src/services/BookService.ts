@@ -1,4 +1,4 @@
-import type { Book } from "@/models/book";
+import type { Book } from '@/models/book';
 
 import { books as booksMock } from '@/constants/books';
 

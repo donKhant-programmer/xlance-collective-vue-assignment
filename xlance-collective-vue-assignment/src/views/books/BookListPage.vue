@@ -1,7 +1,5 @@
 <template>
- <section
-  class="space-y-6 p-8 min-h-screen"
->
+  <section class="space-y-6 p-8 min-h-screen">
     <!-- HEADER -->
     <div class="flex items-start justify-between">
       <div>
@@ -14,8 +12,8 @@
 
       <RouterLink
         to="/books/add"
-       class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-white transition-opacity hover:opacity-90"
-style="background-color: var(--color-blue)"
+        class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-white transition-opacity hover:opacity-90"
+        style="background-color: var(--color-blue)"
       >
         <Plus :size="20" />
         Add Book
@@ -24,31 +22,23 @@ style="background-color: var(--color-blue)"
 
     <!-- SEARCH -->
     <input
-  v-model="search"
-  placeholder="Search books by title, author, or category..."
-  class="w-full max-w-lg rounded-xl px-4 py-3 text-sm outline-none appearance-none border"
-  style="
-    background-color: var(--color-slate-800);
-    border-color: var(--color-border);
-    color: var(--color-text-primary);
-  "
-/>
+      v-model="search"
+      placeholder="Search books by title, author, or category..."
+      class="w-full max-w-lg rounded-xl px-4 py-3 text-sm outline-none appearance-none border"
+      style="
+        background-color: var(--color-slate-800);
+        border-color: var(--color-border);
+        color: var(--color-text-primary);
+      "
+    />
 
     <!-- TABLE -->
-    <div
-  class="overflow-hidden rounded-xl border"
-  style="border-color: var(--color-border)"
->
+    <div class="overflow-hidden rounded-xl border" style="border-color: var(--color-border)">
       <!-- TABLE HEADER -->
       <div
-      <div
-  class="grid grid-cols-5 px-6 py-4 text-xs rounded-t-xl"
-  style="
-    background-color: var(--color-slate-900);
-    color: var(--color-text-muted);
-  "
->
-      
+        class="grid grid-cols-5 px-6 py-4 text-xs rounded-t-xl"
+        style="background-color: var(--color-slate-900); color: var(--color-text-muted)"
+      >
         <span>Title</span>
         <span>Author</span>
         <span>Category</span>
@@ -58,11 +48,11 @@ style="background-color: var(--color-blue)"
 
       <!-- ROW -->
       <div
-  v-for="book in filteredBooks"
-  :key="book.id"
-  class="grid grid-cols-5 items-center border-t px-6 py-5 first:border-t-0 hover:bg-[var(--color-slate-800)] transition-colors"
-  style="border-color: var(--color-border)"
->
+        v-for="book in filteredBooks"
+        :key="book.id"
+        class="grid grid-cols-5 items-center border-t px-6 py-5 first:border-t-0 hover:bg-[var(--color-slate-800)] transition-colors"
+        style="border-color: var(--color-border)"
+      >
         <!-- TITLE -->
         <div class="flex items-center gap-3">
           <div class="h-14 w-10 rounded overflow-hidden border border-slate-700 bg-slate-800">
@@ -144,7 +134,7 @@ style="background-color: var(--color-blue)"
     books.value = await BookService.getAll();
     categories.value = await CategoryService.getAll();
     authors.value = await AuthorService.getAll();
-  }
+  };
 
   onMounted(loadData);
 

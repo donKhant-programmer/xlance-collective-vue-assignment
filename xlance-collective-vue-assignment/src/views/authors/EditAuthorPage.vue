@@ -85,34 +85,38 @@
 
           <!-- Row 1: Nationality -->
           <div class="space-y-2">
-  <label class="text-sm text-white font-medium flex items-center gap-1">
-    Nationality
-    <span class="text-[#EF4444]">*</span>
-  </label>
+            <label class="text-sm text-white font-medium flex items-center gap-1">
+              Nationality
+              <span class="text-[#EF4444]">*</span>
+            </label>
 
-  <Select v-model="form.nationality">
-    <!-- Trigger -->
-    <SelectTrigger class="w-full bg-[#111A22] border border-[#324D67] text-white rounded-lg">
-      <SelectValue placeholder="Select country" class="text-white" />
-    </SelectTrigger>
+            <Select v-model="form.nationality">
+              <!-- Trigger -->
+              <SelectTrigger
+                class="w-full bg-[#111A22] border border-[#324D67] text-white rounded-lg"
+              >
+                <SelectValue placeholder="Select country" class="text-white" />
+              </SelectTrigger>
 
-    <!-- Dropdown Content -->
-    <SelectContent class="bg-[#111A22] border border-[#324D67] rounded-lg mt-1 text-white shadow-none">
-      <SelectItem value="British" class="text-white hover:bg-[#137FEC] hover:text-white">
-        British
-      </SelectItem>
-      <SelectItem value="American" class="text-white hover:bg-[#137FEC] hover:text-white">
-        American
-      </SelectItem>
-      <SelectItem value="Japanese" class="text-white hover:bg-[#137FEC] hover:text-white">
-        Japanese
-      </SelectItem>
-      <SelectItem value="French" class="text-white hover:bg-[#137FEC] hover:text-white">
-        French
-      </SelectItem>
-    </SelectContent>
-  </Select>
-</div>
+              <!-- Dropdown Content -->
+              <SelectContent
+                class="bg-[#111A22] border border-[#324D67] rounded-lg mt-1 text-white shadow-none"
+              >
+                <SelectItem value="British" class="text-white hover:bg-[#137FEC] hover:text-white">
+                  British
+                </SelectItem>
+                <SelectItem value="American" class="text-white hover:bg-[#137FEC] hover:text-white">
+                  American
+                </SelectItem>
+                <SelectItem value="Japanese" class="text-white hover:bg-[#137FEC] hover:text-white">
+                  Japanese
+                </SelectItem>
+                <SelectItem value="French" class="text-white hover:bg-[#137FEC] hover:text-white">
+                  French
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
           <!-- Row 2: Date of Birth -->
           <div class="space-y-2">
@@ -152,7 +156,8 @@
 
           <Button
             type="submit"
-            class="bg-[#137FEC] px-8 py-2 rounded-lg text-white font-medium hover:bg-blue-600"
+            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
+            style="background-color: var(--color-blue)"
           >
             Save Changes
           </Button>
@@ -211,10 +216,8 @@
     form.imageUrl = URL.createObjectURL(file);
   };
 
-  
-
-const loadData = async () => {
-  const id = Number(route.params.id);
+  const loadData = async () => {
+    const id = Number(route.params.id);
     const data = await AuthorService.getById(id);
 
     if (!data) return router.push('/authors');
@@ -228,9 +231,9 @@ const loadData = async () => {
     form.genre = data.genre || '';
     form.bio = data.biography || '';
     form.imageUrl = data.imageUrl || '';
-};
+  };
 
-onMounted(loadData);
+  onMounted(loadData);
 
   const submitForm = async () => {
     if (!form.name || !form.nationality) return;

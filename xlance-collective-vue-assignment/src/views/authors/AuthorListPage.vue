@@ -1,7 +1,5 @@
 <template>
-  <section
-  class="space-y-6 p-8 min-h-screen"
->
+  <section class="space-y-6 p-8 min-h-screen">
     <!-- HEADER -->
     <div class="flex items-start justify-between">
       <div>
@@ -16,7 +14,7 @@
       <Button
         as-child
         class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-white transition-colors"
-style="background-color: var(--color-blue)"
+        style="background-color: var(--color-blue)"
       >
         <RouterLink to="/authors/add" class="inline-flex items-center gap-2">
           <Plus :size="20" />
@@ -30,26 +28,20 @@ style="background-color: var(--color-blue)"
       v-model="search"
       placeholder="Filter by name or nationality..."
       class="w-full max-w-lg mt-6 rounded-xl border px-4 py-3 text-sm outline-none appearance-none"
-style="
-  background-color: var(--color-slate-800);
-  border-color: var(--color-border);
-  color: var(--color-text-primary);
-"
+      style="
+        background-color: var(--color-slate-800);
+        border-color: var(--color-border);
+        color: var(--color-text-primary);
+      "
     />
 
     <!-- TABLE -->
-    <div
-  class="overflow-hidden rounded-xl border"
-  style="border-color: var(--color-border)"
->
+    <div class="overflow-hidden rounded-xl border" style="border-color: var(--color-border)">
       <!-- HEADER -->
       <div
-  class="grid grid-cols-[2fr_1.3fr_1.3fr_140px] px-6 py-4 text-xs rounded-t-xl"
-  style="
-    background-color: var(--color-slate-900);
-    color: var(--color-text-muted);
-  "
->
+        class="grid grid-cols-[2fr_1.3fr_1.3fr_140px] px-6 py-4 text-xs rounded-t-xl"
+        style="background-color: var(--color-slate-900); color: var(--color-text-muted)"
+      >
         <span>Author</span>
 
         <span>Nationality</span>
@@ -64,7 +56,7 @@ style="
         v-for="author in filteredAuthors"
         :key="author.id"
         class="grid grid-cols-[2fr_1.3fr_1.3fr_140px] items-center border-t px-6 py-5 gap-6 first:border-t-0 last:rounded-b-xl"
-style="border-color: var(--color-border)"
+        style="border-color: var(--color-border)"
       >
         <!-- AUTHOR COLUMN -->
         <div class="flex items-center gap-3">
@@ -94,12 +86,12 @@ style="border-color: var(--color-border)"
         <!-- NATIONALITY -->
         <div>
           <span
-          class="px-3 py-1 text-xs font-medium rounded-lg border"
-style="
-  background-color: var(--color-slate-800);
-  border-color: var(--color-slate-700);
-  color: var(--color-text-secondary);
-"
+            class="px-3 py-1 text-xs font-medium rounded-lg border"
+            style="
+              background-color: var(--color-slate-800);
+              border-color: var(--color-slate-700);
+              color: var(--color-text-secondary);
+            "
           >
             {{ author.nationality }}
           </span>
@@ -156,12 +148,10 @@ style="
   const authors = ref<Author[]>([]);
   const books = ref<Book[]>([]);
 
-  
-  
   const loadData = async () => {
     await loadAuthors();
     books.value = await BookService.getAll();
-  }
+  };
 
   onMounted(loadData);
 
