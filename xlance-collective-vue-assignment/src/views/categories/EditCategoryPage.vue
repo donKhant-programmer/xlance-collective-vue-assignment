@@ -108,7 +108,7 @@
     active: true,
   });
 
-  onMounted(loadData);
+  
 
   const loadData = async () => {
     try {
@@ -120,6 +120,8 @@
       loading.value = false;
     }
   }
+
+  onMounted(loadData);
 
   const updateCategory = async () => {
     if (!form.value.name) return;

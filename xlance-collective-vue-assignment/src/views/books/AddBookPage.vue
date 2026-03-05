@@ -174,12 +174,12 @@ style="background-color: var(--color-blue)"
 
   const authors = ref<Author[]>([]);
 
-  onMounted(loadData);
-
   const loadData = async () => {
     categories.value = await CategoryService.getAll();
     authors.value = await AuthorService.getAll();
   }
+
+  onMounted(loadData);
 
   const categories = ref<Category[]>([]);
 

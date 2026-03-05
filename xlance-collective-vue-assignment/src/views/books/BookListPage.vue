@@ -140,13 +140,13 @@ style="background-color: var(--color-blue)"
     await loadBooks();
   };
 
-  onMounted(loadData);
-
   const loadData = async () => {
     books.value = await BookService.getAll();
     categories.value = await CategoryService.getAll();
     authors.value = await AuthorService.getAll();
   }
+
+  onMounted(loadData);
 
   const filteredBooks = computed(() =>
     books.value.filter((b) =>

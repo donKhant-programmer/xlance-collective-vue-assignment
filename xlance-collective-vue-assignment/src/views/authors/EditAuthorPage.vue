@@ -211,7 +211,7 @@
     form.imageUrl = URL.createObjectURL(file);
   };
 
-  onMounted(loadData);
+  
 
 const loadData = async () => {
   const id = Number(route.params.id);
@@ -229,6 +229,8 @@ const loadData = async () => {
     form.bio = data.biography || '';
     form.imageUrl = data.imageUrl || '';
 };
+
+onMounted(loadData);
 
   const submitForm = async () => {
     if (!form.name || !form.nationality) return;

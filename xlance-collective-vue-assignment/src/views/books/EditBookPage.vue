@@ -182,7 +182,7 @@ style="background-color: var(--color-blue)"
     coverImageUrl: '',
   });
 
-  onMounted(loadData);
+  
 
   const loadData = async () => {
     const book = await BookService.getById(Number(route.params.id));
@@ -199,6 +199,8 @@ style="background-color: var(--color-blue)"
     authors.value = await AuthorService.getAll();
     categories.value = await CategoryService.getAll();
   }
+
+  onMounted(loadData);
 
   // File picker
   const triggerFilePicker = () => {

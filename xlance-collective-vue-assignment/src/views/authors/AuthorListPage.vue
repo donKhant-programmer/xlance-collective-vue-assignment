@@ -156,12 +156,14 @@ style="
   const authors = ref<Author[]>([]);
   const books = ref<Book[]>([]);
 
-  onMounted(loadData);
+  
   
   const loadData = async () => {
     await loadAuthors();
     books.value = await BookService.getAll();
   }
+
+  onMounted(loadData);
 
   async function loadAuthors() {
     authors.value = await AuthorService.getAll();

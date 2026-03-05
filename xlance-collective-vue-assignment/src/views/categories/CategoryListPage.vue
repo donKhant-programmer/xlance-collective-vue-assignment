@@ -96,7 +96,7 @@
 
   const removeCategory = async (id: number) => {
     await CategoryService.delete(id);
-    await loadCategories();
+    await loadData();
   };
 
   onMounted(loadData);
