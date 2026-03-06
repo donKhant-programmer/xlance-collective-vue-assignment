@@ -82,38 +82,42 @@
   </section>
 </template>
 <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue';
-  import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
-  import { CategoryService } from '@/services/CategoryService';
-  import type { Category } from '@/models/category';
+import { ref, computed, onMounted } from 'vue';
+import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
+import { CategoryService } from '@/services/CategoryService';
+import type { Category } from '@/models/category';
 
-  const search = ref('');
-  const categories = ref<Category[]>([]);
+const search = ref('');
+const categories = ref<Category[]>([]);
 
-  const loadData = async () => {
-    categories.value = await CategoryService.getAll();
-  };
+async function loadData() {
+  categories.value = await CategoryService.getAll();
+}
 
-  const removeCategory = async (id: number) => {
-    await CategoryService.delete(id);
-    await loadData();
-  };
+async function removeCategory(id: number) {
+  await CategoryService.delete(id);
+  await loadData();
+}
 
-  onMounted(loadData);
+onMounted(loadData);
 
-  const filteredCategories = computed(() =>
-    categories.value.filter((c) =>
-      (c.name + c.description).toLowerCase().includes(search.value.toLowerCase()),
-    ),
-  );
+const filteredCategories = computed(function () {
+  return categories.value.filter(function (c) {
+    return (c.name + c.description)
+      .toLowerCase()
+      .includes(search.value.toLowerCase());
+  });
+});
 
-  // utils/time.ts
-  const timeAgo = (dateStr: string) => {
-    const date = new Date(dateStr);
-    const diff = (Date.now() - date.getTime()) / 1000; // seconds
-    if (diff < 60) return 'just now';
-    if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
-    if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
-    return `${Math.floor(diff / 86400)} days ago`;
-  };
+// utils/time.ts
+function timeAgo(dateStr: string) {
+  const date = new Date(dateStr);
+  const diff = (Date.now() - date.getTime()) / 1000; // seconds
+
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} hours ago`;
+
+  return `${Math.floor(diff / 86400)} days ago`;
+}
 </script>

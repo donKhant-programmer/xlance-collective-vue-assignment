@@ -117,7 +117,7 @@
     description: '',
   });
 
-  const submitForm = async () => {
+  async function submitForm() {
     if (!form.value.name) return;
 
     await CategoryService.create({

@@ -112,7 +112,7 @@
     active: true,
   });
 
-  const loadData = async () => {
+  async function loadData() {
     try {
       const id = Number(route.params.id);
       form.value = await CategoryService.getById(id);
@@ -125,7 +125,7 @@
 
   onMounted(loadData);
 
-  const updateCategory = async () => {
+  async function updateCategory () {
     if (!form.value.name) return;
 
     await CategoryService.update(form.value);

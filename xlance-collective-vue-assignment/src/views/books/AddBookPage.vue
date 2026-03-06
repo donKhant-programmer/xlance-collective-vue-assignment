@@ -159,86 +159,79 @@
     </form>
   </section>
 </template>
-
 <script setup lang="ts">
-  // import { reactive, ref } from 'vue'
-  import { RouterLink, useRouter } from 'vue-router';
-  import { BookService } from '@/services/BookService';
-  import type { BookStatus } from '@/models/book';
-  import { onMounted, reactive, ref } from 'vue';
-  import { CategoryService } from '@/services/CategoryService';
-  import type { Category } from '@/models/category';
+import { RouterLink, useRouter } from 'vue-router';
+import { BookService } from '@/services/BookService';
+import type { BookStatus } from '@/models/book';
+import { onMounted, reactive, ref } from 'vue';
+import { CategoryService } from '@/services/CategoryService';
+import type { Category } from '@/models/category';
+import { AuthorService } from '@/services/AuthorService';
+import type { Author } from '@/models/author';
 
-  import { AuthorService } from '@/services/AuthorService';
-  import type { Author } from '@/models/author';
+const authors = ref<Author[]>([]);
+const categories = ref<Category[]>([]);
 
-  const authors = ref<Author[]>([]);
+const router = useRouter();
+const fileInput = ref<HTMLInputElement | null>(null);
 
-  const loadData = async () => {
-    categories.value = await CategoryService.getAll();
-    authors.value = await AuthorService.getAll();
-  };
+const form = reactive({
+  title: '',
+  year: null as number | null,
+  authorId: null as number | null,
+  categoryId: null as number | null,
+  status: 'AVAILABLE' as BookStatus,
+  description: '',
+  coverImage: null as File | null,
+  coverImageUrl: '',
+});
 
-  onMounted(loadData);
+async function loadData() {
+  categories.value = await CategoryService.getAll();
+  authors.value = await AuthorService.getAll();
+}
 
-  const categories = ref<Category[]>([]);
+onMounted(loadData);
 
-  const router = useRouter();
-  const fileInput = ref<HTMLInputElement | null>(null);
+function triggerFilePicker() {
+  fileInput.value?.click();
+}
 
-  const form = reactive({
-    title: '',
-    year: null as number | null,
-    authorId: null as number | null,
-    categoryId: null as number | null,
-    status: 'AVAILABLE' as BookStatus,
-    description: '',
-    coverImage: null as File | null,
-    coverImageUrl: '',
+function handleFileChange(e: Event) {
+  const target = e.target as HTMLInputElement;
+
+  if (target.files && target.files[0]) {
+    setFile(target.files[0]);
+  }
+}
+
+function handleDrop(e: DragEvent) {
+  if (e.dataTransfer?.files[0]) {
+    setFile(e.dataTransfer.files[0]);
+  }
+}
+
+function setFile(file: File) {
+  if (!file.type.startsWith('image/')) return;
+
+  form.coverImage = file;
+  form.coverImageUrl = URL.createObjectURL(file);
+}
+
+async function submitForm() {
+  if (!form.title || !form.year || !form.authorId || !form.categoryId) return;
+
+  await BookService.add({
+    id: 0,
+    title: form.title,
+    year: form.year,
+    authorId: form.authorId,
+    categoryId: form.categoryId,
+    status: form.status,
+    description: form.description,
+    ...(form.coverImage ? { coverImage: form.coverImage } : {}),
   });
 
-  // Trigger hidden file input
-  const triggerFilePicker = () => {
-    fileInput.value?.click();
-  };
-
-  // Handle file input change
-  const handleFileChange = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    if (target.files && target.files[0]) {
-      setFile(target.files[0]);
-    }
-  };
-
-  // Handle drag & drop
-  const handleDrop = (e: DragEvent) => {
-    if (e.dataTransfer?.files[0]) {
-      setFile(e.dataTransfer.files[0]);
-    }
-  };
-
-  // Set file and preview
-  const setFile = (file: File) => {
-    if (!file.type.startsWith('image/')) return;
-    form.coverImage = file;
-    form.coverImageUrl = URL.createObjectURL(file);
-  };
-
-  // Submit form
-  const submitForm = async () => {
-    if (!form.title || !form.year || !form.authorId || !form.categoryId) return;
-
-    await BookService.add({
-      id: 0,
-      title: form.title,
-      year: form.year,
-      authorId: form.authorId,
-      categoryId: form.categoryId,
-      status: form.status,
-      description: form.description,
-      ...(form.coverImage ? { coverImage: form.coverImage } : {}),
-    });
-
-    router.push('/books');
-  };
+  router.push('/books');
+}
 </script>

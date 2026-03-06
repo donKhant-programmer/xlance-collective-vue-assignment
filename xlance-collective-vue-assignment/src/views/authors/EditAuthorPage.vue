@@ -199,24 +199,22 @@
     imageUrl: '',
   });
 
-  const triggerFilePicker = () => fileInput.value?.click();
+  function triggerFilePicker() { 
+    fileInput.value?.click();
+  }
 
-  const handleFileChange = (e: Event) => {
+  function handleFileChange (e: Event) {
     const target = e.target as HTMLInputElement;
     if (target.files?.[0]) setFile(target.files[0]);
   };
 
-  const handleDrop = (e: DragEvent) => {
-    if (e.dataTransfer?.files[0]) setFile(e.dataTransfer.files[0]);
-  };
-
-  const setFile = (file: File) => {
+  function setFile(file: File) {
     if (!file.type.startsWith('image/')) return;
     form.image = file;
     form.imageUrl = URL.createObjectURL(file);
   };
 
-  const loadData = async () => {
+  async function loadData() {
     const id = Number(route.params.id);
     const data = await AuthorService.getById(id);
 
@@ -235,7 +233,7 @@
 
   onMounted(loadData);
 
-  const submitForm = async () => {
+  async function submitForm() {
     if (!form.name || !form.nationality) return;
 
     await AuthorService.update({

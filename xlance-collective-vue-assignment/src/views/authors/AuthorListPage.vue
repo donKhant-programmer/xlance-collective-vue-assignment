@@ -135,68 +135,67 @@
     </div>
   </section>
 </template>
-
 <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue';
-  import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
-  import { AuthorService } from '@/services/AuthorService';
-  import type { Author } from '@/models/author';
-  import type { Book } from '@/models/book';
-  import { BookService } from '@/services/BookService';
+import { ref, computed, onMounted } from 'vue';
+import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
+import { AuthorService } from '@/services/AuthorService';
+import type { Author } from '@/models/author';
+import type { Book } from '@/models/book';
+import { BookService } from '@/services/BookService';
 
-  const search = ref('');
-  const authors = ref<Author[]>([]);
-  const books = ref<Book[]>([]);
+const search = ref('');
+const authors = ref<Author[]>([]);
+const books = ref<Book[]>([]);
 
-  const loadData = async () => {
-    await loadAuthors();
-    books.value = await BookService.getAll();
-  };
+async function loadData() {
+  await loadAuthors();
+  books.value = await BookService.getAll();
+}
 
-  onMounted(loadData);
+onMounted(loadData);
 
-  async function loadAuthors() {
-    authors.value = await AuthorService.getAll();
-  }
+async function loadAuthors() {
+  authors.value = await AuthorService.getAll();
+}
 
-  async function removeAuthor(id: number) {
-    await AuthorService.delete(id);
-    await loadAuthors();
-  }
+async function removeAuthor(id: number) {
+  await AuthorService.delete(id);
+  await loadAuthors();
+}
 
-  const filteredAuthors = computed(function () {
-    return authors.value.filter(function (a) {
-      return (a.name + a.nationality).toLowerCase().includes(search.value.toLowerCase());
-    });
+const filteredAuthors = computed(function () {
+  return authors.value.filter(function (a) {
+    return (a.name + a.nationality).toLowerCase().includes(search.value.toLowerCase());
   });
+});
 
-  function getInitials(name: string) {
-    return name
-      .split(' ')
-      .map(function (n) {
-        return n[0];
-      })
-      .slice(0, 2)
-      .join('')
-      .toUpperCase();
-  }
+function getInitials(name: string) {
+  return name
+    .split(' ')
+    .map(function (n) {
+      return n[0];
+    })
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+}
 
-  function getCatalogPercent(size: number) {
-    return (size / maxCatalogSize.value) * 100;
-  }
+function getCatalogPercent(size: number) {
+  return (size / maxCatalogSize.value) * 100;
+}
 
-  const maxCatalogSize = computed(function () {
-    return Math.max(
-      ...books.value.map(function (b) {
-        return b.authorId ? getCatalogSize(b.authorId) : 0;
-      }),
-      1,
-    );
-  });
+const maxCatalogSize = computed(function () {
+  return Math.max(
+    ...books.value.map(function (b) {
+      return b.authorId ? getCatalogSize(b.authorId) : 0;
+    }),
+    1,
+  );
+});
 
-  function getCatalogSize(authorId: number) {
-    return books.value.filter(function (b) {
-      return b.authorId === authorId;
-    }).length;
-  }
+function getCatalogSize(authorId: number) {
+  return books.value.filter(function (b) {
+    return b.authorId === authorId;
+  }).length;
+}
 </script>

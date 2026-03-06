@@ -122,53 +122,59 @@
     </div>
   </section>
 </template>
-
 <script setup lang="ts">
-  import { reactive, ref } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { AuthorService } from '@/services/AuthorService';
+import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { AuthorService } from '@/services/AuthorService';
 
-  const router = useRouter();
-  const fileInput = ref<HTMLInputElement | null>(null);
+const router = useRouter();
+const fileInput = ref<HTMLInputElement | null>(null);
 
-  const form = reactive({
-    name: '',
-    nationality: '',
-    biography: '',
-    image: null as File | null,
-    imageUrl: '',
+const form = reactive({
+  name: '',
+  nationality: '',
+  biography: '',
+  image: null as File | null,
+  imageUrl: '',
+});
+
+function triggerFilePicker() {
+  fileInput.value?.click();
+}
+
+function handleFileChange(e: Event) {
+  const target = e.target as HTMLInputElement;
+  if (target.files?.[0]) {
+    setFile(target.files[0]);
+  }
+}
+
+function handleDrop(e: DragEvent) {
+  if (e.dataTransfer?.files[0]) {
+    setFile(e.dataTransfer.files[0]);
+  }
+}
+
+function setFile(file: File) {
+  if (!file.type.startsWith('image/')) return;
+
+  form.image = file;
+  form.imageUrl = URL.createObjectURL(file);
+}
+
+async function submitForm() {
+  if (!form.name || !form.nationality) return;
+
+  await AuthorService.add({
+    id: 0,
+    name: form.name,
+    nationality: form.nationality,
+    biography: form.biography,
+    genre: '',
+    catalog: 0,
+    image: form.image ?? undefined,
   });
 
-  const triggerFilePicker = () => fileInput.value?.click();
-
-  const handleFileChange = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    if (target.files?.[0]) setFile(target.files[0]);
-  };
-
-  const handleDrop = (e: DragEvent) => {
-    if (e.dataTransfer?.files[0]) setFile(e.dataTransfer.files[0]);
-  };
-
-  const setFile = (file: File) => {
-    if (!file.type.startsWith('image/')) return;
-    form.image = file;
-    form.imageUrl = URL.createObjectURL(file);
-  };
-
-  const submitForm = async () => {
-    if (!form.name || !form.nationality) return;
-
-    await AuthorService.add({
-      id: 0,
-      name: form.name,
-      nationality: form.nationality,
-      biography: form.biography,
-      genre: '',
-      catalog: 0,
-      image: form.image ?? undefined,
-    });
-
-    router.push('/authors');
-  };
+  router.push('/authors');
+}
 </script>

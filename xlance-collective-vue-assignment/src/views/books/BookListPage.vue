@@ -101,50 +101,55 @@
     </div>
   </section>
 </template>
-
 <script setup lang="ts">
-  import { ref, computed, onMounted } from 'vue';
-  import { BookService } from '@/services/BookService';
-  import type { Book } from '@/models/book';
-  import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
-  import { CategoryService } from '@/services/CategoryService';
-  import type { Category } from '@/models/category';
-  import type { Author } from '@/models/author';
-  import { AuthorService } from '@/services/AuthorService';
+import { ref, computed, onMounted } from 'vue';
+import { BookService } from '@/services/BookService';
+import type { Book } from '@/models/book';
+import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
+import { CategoryService } from '@/services/CategoryService';
+import type { Category } from '@/models/category';
+import type { Author } from '@/models/author';
+import { AuthorService } from '@/services/AuthorService';
 
-  const authors = ref<Author[]>([]);
-  const categories = ref<Category[]>([]);
+const authors = ref<Author[]>([]);
+const categories = ref<Category[]>([]);
+const books = ref<Book[]>([]);
+const search = ref('');
 
-  const getCategoryName = (id: number) =>
-    categories.value.find((c) => c.id === id)?.name || 'Unknown';
+function getCategoryName(id: number) {
+  return categories.value.find(function (c) {
+    return c.id === id;
+  })?.name || 'Unknown';
+}
 
-  const books = ref<Book[]>([]);
-  const search = ref('');
+async function loadBooks() {
+  books.value = await BookService.getAll();
+}
 
-  const loadBooks = async () => {
-    books.value = await BookService.getAll();
-  };
+async function removeBook(id: number) {
+  await BookService.delete(id);
+  await loadBooks();
+}
 
-  const removeBook = async (id: number) => {
-    await BookService.delete(id);
-    await loadBooks();
-  };
+async function loadData() {
+  books.value = await BookService.getAll();
+  categories.value = await CategoryService.getAll();
+  authors.value = await AuthorService.getAll();
+}
 
-  const loadData = async () => {
-    books.value = await BookService.getAll();
-    categories.value = await CategoryService.getAll();
-    authors.value = await AuthorService.getAll();
-  };
+onMounted(loadData);
 
-  onMounted(loadData);
+const filteredBooks = computed(function () {
+  return books.value.filter(function (b) {
+    return (b.title + getAuthorName(b.authorId) + getCategoryName(b.categoryId))
+      .toLowerCase()
+      .includes(search.value.toLowerCase());
+  });
+});
 
-  const filteredBooks = computed(() =>
-    books.value.filter((b) =>
-      (b.title + getAuthorName(b.authorId) + getCategoryName(b.categoryId))
-        .toLowerCase()
-        .includes(search.value.toLowerCase()),
-    ),
-  );
-
-  const getAuthorName = (id: number) => authors.value.find((a) => a.id === id)?.name || 'Unknown';
+function getAuthorName(id: number) {
+  return authors.value.find(function (a) {
+    return a.id === id;
+  })?.name || 'Unknown';
+}
 </script>

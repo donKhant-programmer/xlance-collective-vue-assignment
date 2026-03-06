@@ -182,7 +182,7 @@
     coverImageUrl: '',
   });
 
-  const loadData = async () => {
+  async function loadData() {
     const book = await BookService.getById(Number(route.params.id));
     if (book) {
       Object.assign(form, book);
@@ -201,24 +201,24 @@
   onMounted(loadData);
 
   // File picker
-  const triggerFilePicker = () => {
+  function triggerFilePicker() {
     fileInput.value?.click();
   };
-  const handleFileChange = (e: Event) => {
+  function handleFileChange(e: Event) {
     const target = e.target as HTMLInputElement;
     if (target.files && target.files[0]) setFile(target.files[0]);
   };
-  const handleDrop = (e: DragEvent) => {
+  function handleDrop(e: DragEvent) {
     if (e.dataTransfer?.files[0]) setFile(e.dataTransfer.files[0]);
   };
-  const setFile = (file: File) => {
+  function setFile(file: File) {
     if (!file.type.startsWith('image/')) return;
     form.coverImage = file;
     form.coverImageUrl = URL.createObjectURL(file);
   };
 
   // Submit
-  const submitForm = async () => {
+  async function submitForm () {
     if (!form.title || !form.year || !form.authorId || !form.categoryId) return;
 
     // Only include coverImage if it's a valid File
