@@ -1,153 +1,198 @@
 <template>
-  <section class="space-y-8 p-8 bg-[#101922] min-h-screen">
+  <section class="space-y-8 p-8 min-h-screen" style="background-color: var(--color-bg-primary)">
     <!-- Breadcrumb + Back -->
     <div class="flex items-center justify-between">
-      <div class="flex items-center gap-8">
-        <RouterLink to="/books" class="text-[#64748B] font-medium text-sm">Books</RouterLink>
-        <span class="text-[#64748B] font-medium text-sm">></span>
-        <span class="text-[#F1F5F9] font-medium text-sm">Edit Book</span>
+      <div class="flex items-center gap-4 text-sm font-medium">
+        <RouterLink to="/books" style="color: var(--color-text-muted)"> Books </RouterLink>
+
+        <span style="color: var(--color-text-muted)">></span>
+
+        <span style="color: var(--color-text-primary)">Edit Book</span>
       </div>
 
-      <RouterLink
-        to="/books"
-        class="flex items-center gap-2 bg-[#233648] px-4 py-2 rounded-lg text-white font-medium text-sm hover:bg-[#137FEC] transition-colors"
+      <Button
+        as-child
+        class="flex items-center gap-2 rounded-lg px-4 py-2"
+        style="background-color: var(--color-slate-800); color: var(--color-text-primary)"
       >
-        <span class="text-lg">←</span>
-        Back to List
-      </RouterLink>
+        <RouterLink to="/books"> ← Back to List </RouterLink>
+      </Button>
     </div>
 
-    <!-- Page Header -->
+    <!-- Header -->
     <div class="space-y-1">
-      <h1 class="text-3xl font-bold text-white">Edit Book: {{ form.title }}</h1>
-      <p class="text-sm font-normal text-[#92ADC9]">Update the book details below.</p>
+      <h1 class="text-3xl font-bold" style="color: var(--color-text-primary)">
+        Edit Book: {{ form.title }}
+      </h1>
+
+      <p class="text-sm" style="color: var(--color-text-secondary)">
+        Update the book details below.
+      </p>
     </div>
 
-    <!-- Form -->
-    <form
-      class="bg-[#192633] border border-[#192633] rounded-xl p-6 md:p-10 mx-auto max-w-4xl space-y-10"
-      @submit.prevent="submitForm"
+    <!-- FORM CARD -->
+    <Card
+      class="mx-auto max-w-4xl p-10 space-y-10 border"
+      style="background-color: var(--color-bg-card); border-color: var(--color-border)"
     >
-      <!-- Cover Image Picker -->
-      <div class="flex flex-col gap-2">
-        <label class="text-xl font-bold text-white">Cover Image</label>
+      <form @submit.prevent="submitForm" class="space-y-10">
+        <!-- Cover Image -->
+        <div class="flex flex-col gap-3">
+          <label class="text-xl font-bold" style="color: var(--color-text-primary)">
+            Cover Image
+          </label>
 
-        <div
-          @click="triggerFilePicker"
-          @dragover.prevent
-          @drop.prevent="handleDrop"
-          class="relative flex items-center justify-center gap-2 border-2 border-[#324D67] rounded-lg bg-[#101922] h-64 w-full cursor-pointer overflow-hidden"
-        >
-          <!-- Show preview if image selected or existing -->
-          <img
-            v-if="form.coverImageUrl"
-            :src="form.coverImageUrl"
-            class="absolute inset-0 h-full w-full object-cover rounded-lg"
-          />
-
-          <!-- Show upload content only if no image -->
-          <div v-else class="flex flex-col items-center justify-center gap-2 text-center px-4">
+          <div
+            @click="triggerFilePicker"
+            @dragover.prevent
+            @drop.prevent="handleDrop"
+            class="relative flex items-center justify-center border-2 rounded-lg h-64 cursor-pointer overflow-hidden"
+            :style="{
+              borderColor: 'var(--color-border)',
+              backgroundColor: 'var(--color-bg-primary)',
+            }"
+          >
             <img
-              src="/svg/upload-placeholder.svg"
-              alt="Upload Placeholder"
-              class="h-8 w-8 text-[#92ADC9]"
+              v-if="form.coverImageUrl"
+              :src="form.coverImageUrl"
+              class="absolute inset-0 w-full h-full object-cover rounded-lg"
             />
-            <p class="text-xs text-[#507A9E]">
-              Click to upload or drag & drop<br />
-              PNG, JPG, or SVG (MAX. 800x800px)
-            </p>
+
+            <div
+              v-else
+              class="flex flex-col items-center text-center gap-2 px-4"
+              style="color: var(--color-text-secondary)"
+            >
+              <img src="/svg/upload-placeholder.svg" class="h-8 w-8" />
+
+              <p class="text-xs">
+                Click to upload or drag & drop <br />
+                PNG, JPG, or SVG (MAX. 800x800px)
+              </p>
+            </div>
+
+            <input
+              ref="fileInput"
+              type="file"
+              accept="image/png, image/jpeg"
+              class="hidden"
+              @change="handleFileChange"
+            />
+          </div>
+        </div>
+
+        <!-- Book Info -->
+        <div class="space-y-6">
+          <label class="text-xl font-bold" style="color: var(--color-text-primary)">
+            Book Information
+          </label>
+
+          <!-- Row -->
+          <div class="flex gap-6 flex-wrap">
+            <Input
+              v-model="form.title"
+              placeholder="e.g. The Great Gatsby"
+              class="flex-1 rounded-xl border px-4 py-3"
+              :style="inputStyle"
+            />
+
+            <Input
+              v-model="form.year"
+              type="number"
+              placeholder="e.g. 1925"
+              class="flex-1 rounded-xl border px-4 py-3"
+              :style="inputStyle"
+            />
           </div>
 
-          <input
-            type="file"
-            ref="fileInput"
-            class="hidden"
-            accept="image/png, image/jpeg"
-            @change="handleFileChange"
-          />
+          <div class="flex gap-6 flex-wrap">
+  <!-- Author -->
+  <Select v-model="form.authorId">
+    <SelectTrigger class="flex-1 rounded-xl border px-4 py-3" :style="inputStyle">
+      <SelectValue placeholder="Select an author..." />
+    </SelectTrigger>
+
+    <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
+      <SelectItem
+        v-for="author in authors"
+        :key="author.id"
+        :value="author.id"
+        class="select-item-hover"
+      >
+        {{ author.name }}
+      </SelectItem>
+    </SelectContent>
+  </Select>
+
+  <!-- Category -->
+  <Select v-model="form.categoryId">
+    <SelectTrigger class="flex-1 rounded-xl border px-4 py-3" :style="inputStyle">
+      <SelectValue placeholder="Select a category..." />
+    </SelectTrigger>
+
+    <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
+      <SelectItem
+        v-for="cat in categories"
+        :key="cat.id"
+        :value="cat.id"
+        class="select-item-hover"
+      >
+        {{ cat.name }}
+      </SelectItem>
+    </SelectContent>
+  </Select>
+</div>
+
+<!-- Status -->
+<Select v-model="form.status">
+  <SelectTrigger class="rounded-xl border px-4 py-3" :style="inputStyle">
+    <SelectValue />
+  </SelectTrigger>
+
+  <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
+    <SelectItem value="AVAILABLE" class="select-item-hover">
+      AVAILABLE
+    </SelectItem>
+    <SelectItem value="BORROWED" class="select-item-hover">
+      BORROWED
+    </SelectItem>
+  </SelectContent>
+</Select>
+
+          <!-- Description -->
+          <div class="flex flex-col gap-2">
+            <label class="text-sm" style="color: var(--color-text-secondary)"> Book Summary </label>
+
+            <Textarea
+              v-model="form.description"
+              placeholder="Brief overview..."
+              class="h-32 rounded-xl border px-4 py-3"
+              :style="inputStyle"
+            />
+          </div>
         </div>
-      </div>
 
-      <!-- Book Info -->
-      <div class="space-y-6">
-        <label class="text-xl font-bold text-white">Book Information</label>
-
-        <!-- Row 1 -->
-        <div class="flex gap-6 flex-wrap">
-          <input
-            v-model="form.title"
-            type="text"
-            placeholder="e.g. The Great Gatsby"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
-          />
-          <input
-            v-model="form.year"
-            type="number"
-            placeholder="e.g. 1925"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
-          />
-        </div>
-
-        <div class="flex gap-6 flex-wrap">
-          <!-- Author -->
-          <select
-            v-model="form.authorId"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+        <!-- Buttons -->
+        <div class="flex justify-end items-center gap-4">
+          <RouterLink
+            to="/books"
+            class="text-sm font-medium hover:underline"
+            style="color: var(--color-text-secondary)"
           >
-            <option disabled :value="null">Select an author...</option>
-            <option v-for="author in authors" :key="author.id" :value="author.id">
-              {{ author.name }}
-            </option>
-          </select>
+            Cancel
+          </RouterLink>
 
-          <!-- Category -->
-          <select
-            v-model="form.categoryId"
-            class="flex-1 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+          <Button
+            type="submit"
+            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white"
+            style="background-color: var(--color-blue)"
           >
-            <option disabled :value="null">Select a category...</option>
-            <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-              {{ cat.name }}
-            </option>
-          </select>
+            Update Book
+            <CircleCheck class="w-4 h-4" />
+          </Button>
         </div>
-
-        <!-- Row 3 -->
-        <select
-          v-model="form.status"
-          class="bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
-        >
-          <option>AVAILABLE</option>
-          <option>BORROWED</option>
-        </select>
-
-        <!-- Description -->
-        <div class="flex flex-col gap-2">
-          <label class="text-sm font-normal text-[#CBD5E1]">Book Summary</label>
-          <textarea
-            v-model="form.description"
-            placeholder="Brief overview..."
-            class="w-full bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white h-32"
-          ></textarea>
-        </div>
-      </div>
-
-      <!-- Buttons -->
-      <div class="flex items-center justify-end gap-4">
-        <!-- Cancel button -->
-        <RouterLink to="/books" class="text-[#94A3B8] font-medium text-sm"> Cancel </RouterLink>
-
-        <!-- Update Book button -->
-        <Button
-          type="submit"
-          class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
-          style="background-color: var(--color-blue)"
-        >
-          Update Book
-          <CircleCheck class="w-4 h-4 text-[#137FEC]" />
-        </Button>
-      </div>
-    </form>
+      </form>
+    </Card>
   </section>
 </template>
 
@@ -161,6 +206,18 @@
   import { CategoryService } from '@/services/CategoryService';
   import type { Category } from '@/models/category';
   import type { Author } from '@/models/author';
+  import { Button } from '@/components/ui/button';
+  import { Input } from '@/components/ui/input';
+  import { Textarea } from '@/components/ui/textarea';
+  import { Card } from '@/components/ui/card';
+
+  import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from '@/components/ui/select';
 
   const authors = ref<Author[]>([]);
 
@@ -173,7 +230,7 @@
   const form = reactive({
     id: 0,
     title: '',
-    year: null as number | null,
+    year: undefined as number | undefined,
     authorId: null as number | null,
     categoryId: null as number | null,
     status: 'AVAILABLE' as BookStatus,
@@ -182,7 +239,13 @@
     coverImageUrl: '',
   });
 
-  async function loadData() {
+  const inputStyle = {
+    backgroundColor: 'var(--color-input-bg)',
+    borderColor: 'var(--color-border)',
+    color: 'var(--color-text-primary)',
+  };
+
+  async function loadData(): Promise<void> {
     const book = await BookService.getById(Number(route.params.id));
     if (book) {
       Object.assign(form, book);
@@ -196,29 +259,29 @@
     // Load authors & categories
     authors.value = await AuthorService.getAll();
     categories.value = await CategoryService.getAll();
-  };
+  }
 
   onMounted(loadData);
 
   // File picker
   function triggerFilePicker() {
     fileInput.value?.click();
-  };
+  }
   function handleFileChange(e: Event) {
     const target = e.target as HTMLInputElement;
     if (target.files && target.files[0]) setFile(target.files[0]);
-  };
+  }
   function handleDrop(e: DragEvent) {
     if (e.dataTransfer?.files[0]) setFile(e.dataTransfer.files[0]);
-  };
+  }
   function setFile(file: File) {
     if (!file.type.startsWith('image/')) return;
     form.coverImage = file;
     form.coverImageUrl = URL.createObjectURL(file);
-  };
+  }
 
   // Submit
-  async function submitForm () {
+  async function submitForm(): Promise<void> {
     if (!form.title || !form.year || !form.authorId || !form.categoryId) return;
 
     // Only include coverImage if it's a valid File
@@ -235,5 +298,5 @@
 
     await BookService.update(updatedBook);
     router.push('/books');
-  };
+  }
 </script>

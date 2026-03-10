@@ -1,32 +1,34 @@
 <template>
-  <section class="space-y-6 p-8 min-h-screen">
+  <section class="space-y-6 p-8">
     <!-- HEADER -->
     <div class="flex items-start justify-between">
       <div>
-        <h1 class="text-4xl font-black" style="color: var(--color-text-primary)">Book Directory</h1>
+        <h1 class="text-4xl font-black text-white">Book Directory</h1>
 
-        <p class="mt-2 max-w-xl text-base" style="color: var(--color-text-secondary)">
+        <p class="mt-2 max-w-xl text-base text-slate-400">
           Manage your Book List in the order you would like to show...
         </p>
       </div>
 
-      <RouterLink
-        to="/books/add"
-        class="flex items-center gap-2 rounded-xl px-5 py-2.5 text-white transition-opacity hover:opacity-90"
+      <Button
+        as-child
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-white"
         style="background-color: var(--color-blue)"
       >
-        <Plus :size="20" />
-        Add Book
-      </RouterLink>
+        <RouterLink to="/books/add">
+          <Plus :size="20" />
+          Add Book
+        </RouterLink>
+      </Button>
     </div>
 
     <!-- SEARCH -->
-    <input
+    <Input
       v-model="search"
       placeholder="Search books by title, author, or category..."
-      class="w-full max-w-lg rounded-xl px-4 py-3 text-sm outline-none appearance-none border"
+      class="w-full max-w-lg rounded-xl border px-4 py-3 text-sm"
       style="
-        background-color: var(--color-slate-800);
+        background-color: var(--color-slate-900);
         border-color: var(--color-border);
         color: var(--color-text-primary);
       "
@@ -34,122 +36,189 @@
 
     <!-- TABLE -->
     <div class="overflow-hidden rounded-xl border" style="border-color: var(--color-border)">
-      <!-- TABLE HEADER -->
-      <div
-        class="grid grid-cols-5 px-6 py-4 text-xs rounded-t-xl"
-        style="background-color: var(--color-slate-900); color: var(--color-text-muted)"
-      >
-        <span>Title</span>
-        <span>Author</span>
-        <span>Category</span>
-        <span>Status</span>
-        <span>Actions</span>
-      </div>
+      <Table class="[&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
+        <!-- HEADER -->
+        <TableHeader style="background-color: var(--color-slate-800)">
+          <TableRow class="border-b" style="border-color: var(--color-slate-800)">
+            <TableHead class="text-left" style="color: var(--color-text-muted); width: 2fr">
+              Title
+            </TableHead>
 
-      <!-- ROW -->
-      <div
-        v-for="book in filteredBooks"
-        :key="book.id"
-        class="grid grid-cols-5 items-center border-t px-6 py-5 first:border-t-0 hover:bg-[var(--color-slate-800)] transition-colors"
-        style="border-color: var(--color-border)"
-      >
-        <!-- TITLE -->
-        <div class="flex items-center gap-3">
-          <div class="h-14 w-10 rounded overflow-hidden border border-slate-700 bg-slate-800">
-            <img
-              v-if="book.coverImageUrl"
-              :src="book.coverImageUrl"
-              alt="cover"
-              class="h-full w-full object-cover"
-            />
-          </div>
+            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1.5fr">
+              Author
+            </TableHead>
 
-          <div>
-            <p class="text-sm" style="color: var(--color-text-primary)">{{ book.title }}</p>
-            <p class="text-xs" style="color: var(--color-text-secondary)">Pub. {{ book.year }}</p>
-          </div>
-        </div>
+            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1fr">
+              Category
+            </TableHead>
 
-        <span class="text-sm" style="color: var(--color-text-secondary)">{{
-          getAuthorName(book.authorId)
-        }}</span>
+            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1fr">
+              Status
+            </TableHead>
 
-        <span class="w-fit rounded bg-indigo-200 px-2 py-1 text-xs font-medium text-indigo-500">
-          {{ getCategoryName(book.categoryId) }}
-        </span>
+            <TableHead class="text-right" style="color: var(--color-text-muted); width: 1.5fr">
+              Actions
+            </TableHead>
+          </TableRow>
+        </TableHeader>
 
-        <span
-          :class="book.status === 'AVAILABLE' ? 'font-bold text-xs' : 'font-bold text-xs'"
-          :style="
-            book.status === 'AVAILABLE'
-              ? 'color: var(--color-green-400)'
-              : 'color: var(--color-yellow-400)'
-          "
-        >
-          {{ book.status }}
-        </span>
+        <!-- BODY -->
+        <TableBody>
+          <TableRow
+            v-for="book in filteredBooks"
+            :key="book.id"
+            class="border-b last:border-none bg-[var(--color-slate-900)]"
+            :style="{ borderColor: 'var(--color-border)' }"
+          >
+            <!-- TITLE -->
+            <TableCell style="background-color: var(--color-slate-900)">
+              <div class="flex items-center gap-3">
+                <div
+                  class="h-14 w-10 rounded overflow-hidden border"
+                  style="
+                    background-color: var(--color-slate-800);
+                    border-color: var(--color-slate-700);
+                  "
+                >
+                  <img
+                    v-if="book.coverImageUrl"
+                    :src="book.coverImageUrl"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+                <div>
+                  <p class="text-sm" style="color: var(--color-text-primary)">{{ book.title }}</p>
+                  <p class="text-xs" style="color: var(--color-text-secondary)">
+                    Pub. {{ book.year }}
+                  </p>
+                </div>
+              </div>
+            </TableCell>
 
-        <div class="flex gap-2" style="color: var(--color-text-muted)">
-          <Pencil
-            :size="18"
-            class="cursor-pointer"
-            @click="$router.push(`/books/edit/${book.id}`)"
-          />
-          <Trash2 :size="18" class="cursor-pointer" @click="removeBook(book.id)" />
-        </div>
-      </div>
+            <!-- AUTHOR -->
+            <TableCell
+              style="color: var(--color-text-secondary); background-color: var(--color-slate-900)"
+              >{{ getAuthorName(book.authorId) }}</TableCell
+            >
+
+            <!-- CATEGORY -->
+            <TableCell style="background-color: var(--color-slate-900)">
+              <Badge
+                class="px-3 py-1 rounded-full"
+                style="background-color: var(--color-badge-bg); color: var(--color-indigo-500)"
+              >
+                {{ getCategoryName(book.categoryId) }}
+              </Badge>
+            </TableCell>
+
+            <!-- STATUS -->
+            <TableCell style="background-color: var(--color-slate-900)">
+              <Badge
+                class="px-3 py-1 rounded-full"
+                :style="
+                  book.status === 'AVAILABLE'
+                    ? 'background-color: var(--color-badge-bg); color: var(--color-green-400)'
+                    : 'background-color: var(--color-badge-bg); color: var(--color-yellow-400)'
+                "
+              >
+                {{ book.status }}
+              </Badge>
+            </TableCell>
+
+            <!-- ACTIONS -->
+            <TableCell class="text-right" style="background-color: var(--color-slate-900)">
+              <div class="flex justify-end gap-3 text-slate-400">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  class="hover:bg-transparent hover:text-white"
+                  @click="$router.push(`/books/edit/${book.id}`)"
+                >
+                  <Pencil :size="18" />
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  class="hover:bg-transparent hover:text-red-400"
+                  @click="removeBook(book.id)"
+                >
+                  <Trash2 :size="18" />
+                </Button>
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   </section>
 </template>
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import { BookService } from '@/services/BookService';
-import type { Book } from '@/models/book';
-import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
-import { CategoryService } from '@/services/CategoryService';
-import type { Category } from '@/models/category';
-import type { Author } from '@/models/author';
-import { AuthorService } from '@/services/AuthorService';
+  import { ref, computed, onMounted } from 'vue';
+  import { BookService } from '@/services/BookService';
+  import type { Book } from '@/models/book';
+  import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
+  import { CategoryService } from '@/services/CategoryService';
+  import type { Category } from '@/models/category';
+  import type { Author } from '@/models/author';
+  import { AuthorService } from '@/services/AuthorService';
+  import { RouterLink } from 'vue-router';
+  import { Button } from '@/components/ui/button';
+  import { Input } from '@/components/ui/input';
+  import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+  } from '@/components/ui/table';
 
-const authors = ref<Author[]>([]);
-const categories = ref<Category[]>([]);
-const books = ref<Book[]>([]);
-const search = ref('');
+  import { Badge } from '@/components/ui/badge';
 
-function getCategoryName(id: number) {
-  return categories.value.find(function (c) {
-    return c.id === id;
-  })?.name || 'Unknown';
-}
+  const authors = ref<Author[]>([]);
+  const categories = ref<Category[]>([]);
+  const books = ref<Book[]>([]);
+  const search = ref('');
 
-async function loadBooks() {
-  books.value = await BookService.getAll();
-}
+  function getCategoryName(id: number) {
+    return (
+      categories.value.find(function (c) {
+        return c.id === id;
+      })?.name || 'Unknown'
+    );
+  }
 
-async function removeBook(id: number) {
-  await BookService.delete(id);
-  await loadBooks();
-}
+  async function loadBooks(): Promise<void> {
+    books.value = await BookService.getAll();
+  }
 
-async function loadData() {
-  books.value = await BookService.getAll();
-  categories.value = await CategoryService.getAll();
-  authors.value = await AuthorService.getAll();
-}
+  async function removeBook(id: number): Promise<void> {
+    await BookService.delete(id);
+    await loadBooks();
+  }
 
-onMounted(loadData);
+  async function loadData(): Promise<void> {
+    books.value = await BookService.getAll();
+    categories.value = await CategoryService.getAll();
+    authors.value = await AuthorService.getAll();
+  }
 
-const filteredBooks = computed(function () {
-  return books.value.filter(function (b) {
-    return (b.title + getAuthorName(b.authorId) + getCategoryName(b.categoryId))
-      .toLowerCase()
-      .includes(search.value.toLowerCase());
+  onMounted(loadData);
+
+  const filteredBooks = computed(function () {
+    return books.value.filter(function (b) {
+      return (b.title + getAuthorName(b.authorId) + getCategoryName(b.categoryId))
+        .toLowerCase()
+        .includes(search.value.toLowerCase());
+    });
   });
-});
 
-function getAuthorName(id: number) {
-  return authors.value.find(function (a) {
-    return a.id === id;
-  })?.name || 'Unknown';
-}
+  function getAuthorName(id: number) {
+    return (
+      authors.value.find(function (a) {
+        return a.id === id;
+      })?.name || 'Unknown'
+    );
+  }
 </script>

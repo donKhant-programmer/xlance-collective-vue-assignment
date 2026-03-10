@@ -1,8 +1,7 @@
-import type { Author } from '@/models/author';
-import { authors as authorsMock } from '@/constants/authors';
-import { books } from '@/constants/books';
+import { authors } from "@/constants/authors.constants";
+import { books } from "@/constants/books.constants";
+import type { Author } from "@/models/author";
 
-let authors = [...authorsMock];
 
 export class AuthorService {
   static async getAll(): Promise<Author[]> {
@@ -46,6 +45,10 @@ export class AuthorService {
   }
 
   static async delete(id: number): Promise<void> {
-    authors = authors.filter((a) => a.id !== id);
+    const index = authors.findIndex((a) => a.id === id);
+
+    if (index !== -1) {
+      authors.splice(index, 1);
+    }
   }
 }

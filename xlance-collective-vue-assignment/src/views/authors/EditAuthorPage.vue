@@ -1,17 +1,19 @@
 <template>
-  <section class="min-h-screen bg-[#101922] flex justify-center items-start py-12 px-4">
+  <section
+    class="min-h-screen bg-[var(--color-bg-primary)] flex justify-center items-start py-12 px-4"
+  >
     <div class="w-full max-w-3xl">
       <!-- Breadcrumb + Back -->
       <div class="flex items-center justify-between mb-8">
-        <div class="flex items-center gap-2 text-sm font-medium">
-          <RouterLink to="/authors" class="text-[#64748B]">Authors</RouterLink>
-          <span class="text-[#64748B]">></span>
-          <span class="text-[#F1F5F9]">Edit: {{ form.name }}</span>
+        <div class="flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)]">
+          <RouterLink to="/authors" class="hover:underline">Authors</RouterLink>
+          <span>&gt;</span>
+          <span class="text-[var(--color-text-primary)]">Edit: {{ form.name }}</span>
         </div>
 
         <RouterLink
           to="/authors"
-          class="flex items-center gap-2 bg-[#233648] px-4 py-2 rounded-lg text-white text-sm hover:bg-[#137FEC] transition"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] text-sm select-item-hover transition"
         >
           ← Back to List
         </RouterLink>
@@ -19,42 +21,40 @@
 
       <!-- Header -->
       <div class="mb-6">
-        <h1 class="text-3xl font-bold text-white">Edit Author</h1>
-        <p class="text-sm text-[#92ADC9]">Update the details of {{ form.name }}.</p>
+        <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">Edit Author</h1>
+        <p class="text-sm text-[var(--color-text-secondary)]">
+          Update the details of {{ form.name }}.
+        </p>
       </div>
 
       <!-- Edit Header: Image + Name + Button -->
-      <div class="bg-[#192633] p-8 rounded-xl flex items-center justify-between gap-4 mb-8">
+      <div
+        class="p-8 rounded-2xl flex items-center justify-between gap-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] mb-8"
+      >
         <div class="flex items-center gap-4">
           <img
             :src="form.imageUrl || '/placeholder.png'"
             alt="Author"
-            class="w-20 h-20 rounded-[12px] border border-[#324D67] object-cover"
+            class="w-20 h-20 rounded-2xl border border-[var(--color-border)] object-cover"
           />
-          <span class="text-white font-bold text-[20px]">
+          <span class="text-[var(--color-text-primary)] font-bold text-[20px]">
             {{ form.name || 'Author Name' }}
           </span>
         </div>
 
         <Button
-          type="button"
-          @click="triggerFilePicker"
-          class="flex items-center gap-2 bg-[#137FEC] text-white text-sm font-medium px-4 py-2 rounded-[8px] hover:bg-blue-600"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 12v.01M4 12h16M12 4l0 16" />
-          </svg>
-          Update Profile Photo
-        </Button>
+  type="button"
+  @click="triggerFilePicker"
+  class="flex items-center gap-2 bg-[var(--color-blue)] text-white text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 overflow-hidden"
+>
+  <img
+    src="/svg/add-photo.svg"
+    class="h-4 w-4 object-contain" 
+    alt="Add Photo"
+  />
+  Update Profile Photo
+</Button>
 
-        <!-- Hidden file input -->
         <input
           type="file"
           ref="fileInput"
@@ -66,101 +66,107 @@
 
       <!-- FORM -->
       <form
-        class="bg-[#192633] border border-[#192633] rounded-xl p-10 space-y-8"
+        class="p-10 rounded-2xl bg-[var(--color-bg-card)] border border-[var(--color-border)] space-y-8"
         @submit.prevent="submitForm"
       >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Row 1: Author Name -->
+          <!-- Author Name -->
           <div class="space-y-2">
-            <label class="text-sm text-white font-medium flex items-center gap-1">
+            <label
+              class="text-sm font-medium flex items-center gap-1 text-[var(--color-text-primary)]"
+            >
               Author Name
-              <span class="text-[#EF4444]">*</span>
+              <span class="text-[var(--color-red)]">*</span>
             </label>
             <Input
               v-model="form.name"
               placeholder="e.g., Haruki Murakami"
-              class="bg-[#111A22] border-[#324D67] text-white placeholder:text-white placeholder:opacity-100"
+              class="w-full rounded-xl border px-4 py-3 bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-primary)] placeholder:opacity-70"
             />
           </div>
 
-          <!-- Row 1: Nationality -->
+          <!-- Nationality -->
           <div class="space-y-2">
-            <label class="text-sm text-white font-medium flex items-center gap-1">
+            <label
+              class="text-sm font-medium flex items-center gap-1 text-[var(--color-text-primary)]"
+            >
               Nationality
-              <span class="text-[#EF4444]">*</span>
+              <span class="text-[var(--color-red)]">*</span>
             </label>
-
             <Select v-model="form.nationality">
-              <!-- Trigger -->
               <SelectTrigger
-                class="w-full bg-[#111A22] border border-[#324D67] text-white rounded-lg"
+                class="w-full rounded-xl border px-4 py-3 bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-primary)]"
               >
-                <SelectValue placeholder="Select country" class="text-white" />
+                <SelectValue placeholder="Select country" />
               </SelectTrigger>
-
-              <!-- Dropdown Content -->
               <SelectContent
-                class="bg-[#111A22] border border-[#324D67] rounded-lg mt-1 text-white shadow-none"
+                class="bg-[var(--color-input-bg)] border border-[var(--color-border)] text-[var(--color-text-primary)] rounded-xl"
               >
-                <SelectItem value="British" class="text-white hover:bg-[#137FEC] hover:text-white">
-                  British
-                </SelectItem>
-                <SelectItem value="American" class="text-white hover:bg-[#137FEC] hover:text-white">
-                  American
-                </SelectItem>
-                <SelectItem value="Japanese" class="text-white hover:bg-[#137FEC] hover:text-white">
-                  Japanese
-                </SelectItem>
-                <SelectItem value="French" class="text-white hover:bg-[#137FEC] hover:text-white">
-                  French
-                </SelectItem>
+                <SelectItem value="British" class="select-item-hover"
+                  >British</SelectItem
+                >
+                <SelectItem value="American" class="select-item-hover"
+                  >American</SelectItem
+                >
+                <SelectItem value="Japanese" class="select-item-hover"
+                  >Japanese</SelectItem
+                >
+                <SelectItem value="French" class="select-item-hover">French</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          <!-- Row 2: Date of Birth -->
+          <!-- Date of Birth -->
           <div class="space-y-2">
-            <label class="text-sm text-white font-medium">Date of Birth</label>
+            <label class="text-sm font-medium text-[var(--color-text-primary)]"
+              >Date of Birth</label
+            >
             <Input
               type="date"
               v-model="form.dob"
-              class="bg-[#111A22] border-[#324D67] text-white"
+              class="w-full rounded-xl border px-4 py-3 pr-10 bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-primary)]"
+              style="-webkit-appearance: none; -moz-appearance: none; appearance: none"
             />
           </div>
 
-          <!-- Row 2: Primary Genre -->
+          <!-- Primary Genre -->
           <div class="space-y-2">
-            <label class="text-sm text-white font-medium">Primary Genre</label>
+            <label class="text-sm font-medium text-[var(--color-text-primary)]"
+              >Primary Genre</label
+            >
             <Input
               v-model="form.genre"
               placeholder="e.g., Magical Realism"
-              class="bg-[#111A22] border-[#324D67] text-white placeholder:text-white placeholder:opacity-100"
+              class="w-full rounded-xl border px-4 py-3 bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-primary)] placeholder:opacity-70"
             />
           </div>
         </div>
 
-        <!-- BIOGRAPHY -->
+        <!-- Biography -->
         <div class="space-y-2">
-          <label class="text-sm text-white font-medium">Biography</label>
+          <label class="text-sm font-medium text-[var(--color-text-primary)]">Biography</label>
           <Textarea
             v-model="form.bio"
             placeholder="Write a brief biography of the author..."
-            class="h-40 bg-[#111A22] border-[#324D67] text-white placeholder:text-white placeholder:opacity-100"
+            class="w-full rounded-xl border px-4 py-3 bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-primary)] placeholder:opacity-70 h-40"
           />
-          <p class="text-xs text-[#507A9E]">Recommended length: 100–500 words</p>
+          <p class="text-xs text-[var(--color-text-secondary)]">
+            Recommended length: 100–500 words
+          </p>
         </div>
 
-        <!-- BUTTONS -->
+        <!-- Buttons -->
         <div class="flex items-center justify-end gap-4 pt-4">
-          <RouterLink to="/authors" class="text-[#94A3B8] text-sm font-medium"> Cancel </RouterLink>
-
+          <RouterLink
+            to="/authors"
+            class="text-sm font-medium text-[var(--color-text-secondary)] hover:underline"
+            >Cancel</RouterLink
+          >
           <Button
             type="submit"
-            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
-            style="background-color: var(--color-blue)"
+            class="bg-[var(--color-blue)] text-white px-8 py-2.5 rounded-xl hover:opacity-90"
+            >Save Changes</Button
           >
-            Save Changes
-          </Button>
         </div>
       </form>
     </div>
@@ -181,9 +187,9 @@
     SelectTrigger,
     SelectValue,
   } from '@/components/ui/select';
+  import { Button } from '@/components/ui/button';
 
   const author = ref<Author | null>(null);
-
   const router = useRouter();
   const route = useRoute();
   const fileInput = ref<HTMLInputElement | null>(null);
@@ -199,26 +205,29 @@
     imageUrl: '',
   });
 
-  function triggerFilePicker() { 
+  function triggerFilePicker() {
     fileInput.value?.click();
   }
 
-  function handleFileChange (e: Event) {
+  function handleFileChange(e: Event) {
     const target = e.target as HTMLInputElement;
     if (target.files?.[0]) setFile(target.files[0]);
-  };
+  }
 
   function setFile(file: File) {
     if (!file.type.startsWith('image/')) return;
     form.image = file;
     form.imageUrl = URL.createObjectURL(file);
-  };
+  }
 
-  async function loadData() {
+  async function loadData(): Promise<void> {
     const id = Number(route.params.id);
     const data = await AuthorService.getById(id);
 
-    if (!data) return router.push('/authors');
+    if (!data) {
+      router.push('/authors');
+      return;
+    }
 
     author.value = data;
 
@@ -229,11 +238,11 @@
     form.genre = data.genre || '';
     form.bio = data.biography || '';
     form.imageUrl = data.imageUrl || '';
-  };
+  }
 
   onMounted(loadData);
 
-  async function submitForm() {
+  async function submitForm(): Promise<void> {
     if (!form.name || !form.nationality) return;
 
     await AuthorService.update({
@@ -247,5 +256,5 @@
     });
 
     router.push('/authors');
-  };
+  }
 </script>

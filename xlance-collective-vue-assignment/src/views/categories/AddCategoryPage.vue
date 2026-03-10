@@ -1,17 +1,19 @@
 <template>
-  <section class="min-h-screen bg-[#101922] flex justify-center items-start py-12 px-4">
+  <section
+    class="min-h-screen bg-[var(--color-bg-primary)] flex justify-center items-start py-12 px-4"
+  >
     <div class="w-full max-w-3xl">
       <!-- Breadcrumb + Back -->
       <div class="flex items-center justify-between mb-8">
-        <div class="flex items-center gap-2 text-sm font-medium">
-          <RouterLink to="/categories" class="text-[#64748B]">Categories</RouterLink>
-          <span class="text-[#64748B]">></span>
-          <span class="text-[#F1F5F9]">Add New Category</span>
+        <div class="flex items-center gap-2 text-sm font-medium text-[var(--color-text-muted)]">
+          <RouterLink to="/categories" class="hover:underline">Categories</RouterLink>
+          <span class="text-[var(--color-text-muted)]">&gt;</span>
+          <span class="text-[var(--color-text-primary)]">Add New Category</span>
         </div>
 
         <RouterLink
           to="/categories"
-          class="flex items-center gap-2 bg-[#233648] px-4 py-2 rounded-lg text-white text-sm hover:bg-[#137FEC] transition"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] text-sm hover:bg-[var(--color-blue)] hover:text-white transition"
         >
           ← Back to List
         </RouterLink>
@@ -19,96 +21,106 @@
 
       <!-- Header -->
       <div class="mb-6">
-        <h1 class="text-3xl font-bold text-white">Add New Category</h1>
-        <p class="text-sm text-[#92ADC9]">Fill in the details to create a new book category.</p>
+        <h1 class="text-3xl font-bold text-[var(--color-text-primary)]">Add New Category</h1>
+        <p class="text-sm text-[var(--color-text-secondary)]">
+          Fill in the details to create a new book category.
+        </p>
       </div>
 
       <!-- FORM -->
       <form
-        class="bg-[#192633] border border-[#192633] rounded-xl p-10 space-y-8"
+        class="p-10 rounded-2xl bg-[var(--color-bg-card)] border border-[var(--color-border)] space-y-8"
         @submit.prevent="submitForm"
       >
         <!-- CATEGORY NAME -->
         <div class="space-y-2">
-          <label class="text-sm text-white font-medium flex items-center gap-1">
+          <label
+            class="text-sm font-medium flex items-center gap-1 text-[var(--color-text-primary)]"
+          >
             Category Name
-            <span class="text-[#EF4444]">*</span>
+            <span class="text-[var(--color-red)]">*</span>
           </label>
-          <input
+          <Input
             v-model="form.name"
-            type="text"
             placeholder="e.g., Science Fiction"
-            class="w-full bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+            class="w-full rounded-xl border px-4 py-3 bg-[var(--color-input-bg)] border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-primary)] placeholder:opacity-70"
           />
         </div>
 
         <!-- DESCRIPTION -->
         <div class="space-y-2">
-          <label class="text-sm text-white font-medium"
-            >Description <span class="text-[#94A3B8] text-xs">(Optional)</span></label
-          >
-          <textarea
+          <label class="text-sm font-medium text-[var(--color-text-primary)]">
+            Description
+            <span class="text-[var(--color-text-secondary)] text-xs">(Optional)</span>
+          </label>
+          <Textarea
             v-model="form.description"
             placeholder="Briefly describe what books belong in this category..."
-            class="w-full h-28 bg-[#111A22] border border-[#324D67] rounded-lg px-3 py-2 text-white"
+            class="w-full h-28 rounded-xl px-4 py-3 bg-[var(--color-input-bg)] border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-primary)] placeholder:opacity-70"
           />
         </div>
+<!-- TIP BOX -->
+<div class="flex items-start gap-2 bg-[var(--color-blue)]/10 rounded-xl p-3">
+  
+  <img
+    src="/svg/info-circle.svg"
+    class="h-4 w-4 mt-0.5 flex-shrink-0"
+  />
 
-        <!-- TIP BOX -->
-        <div class="flex items-start gap-2 bg-[#137FEC]/10 rounded-lg p-3">
-          <!-- Info icon -->
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 text-[#137FEC] mt-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z"
-            />
-          </svg>
-          <div class="flex flex-col gap-1">
-            <span class="text-[#137FEC] font-medium text-xs">Tip</span>
-            <span class="text-[#CBD5E1] text-xs font-normal">
-              Good category names are short and descriptive. You can later assign tags to specific
-              books within these categories.
-            </span>
-          </div>
-        </div>
+  <div class="flex flex-col gap-1">
+    <span
+      class="font-medium text-xs"
+      style="color: var(--color-blue)"
+    >
+      Tip
+    </span>
 
+    <span
+      class="text-xs font-normal"
+      style="color: var(--color-text-secondary)"
+    >
+      Good category names are short and descriptive. You can later assign tags to specific books within these categories.
+    </span>
+  </div>
+</div>
         <!-- BUTTONS -->
         <div class="flex justify-end items-center gap-6 pt-4">
-          <RouterLink to="/categories" class="text-[#94A3B8] text-sm font-medium">
+          <RouterLink
+            to="/categories"
+            class="text-sm font-medium text-[var(--color-text-secondary)] hover:underline"
+          >
             Cancel
           </RouterLink>
 
-          <button
+          <Button
             type="submit"
-            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium transition-opacity hover:opacity-90"
+            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium hover:opacity-90"
             style="background-color: var(--color-blue)"
           >
             Create Category
-          </button>
+          </Button>
         </div>
       </form>
 
       <!-- SYSTEM INFO -->
-      <div class="flex justify-center items-center gap-2 text-sm text-[#94A3B8] mt-6 text-center">
+      <div
+        class="flex justify-center items-center gap-2 text-sm text-[var(--color-text-secondary)] mt-6 text-center"
+      >
         <span>System Version 2.4.0</span>
-        <span class="text-[#64748B]">•</span>
+        <span class="text-[var(--color-text-muted)]">•</span>
         <span>Last updated 12 mins ago</span>
       </div>
     </div>
   </section>
 </template>
+
 <script setup lang="ts">
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { CategoryService } from '@/services/CategoryService';
+  import { Input } from '@/components/ui/input';
+  import { Textarea } from '@/components/ui/textarea';
+  import { Button } from '@/components/ui/button';
 
   const router = useRouter();
 
@@ -117,7 +129,7 @@
     description: '',
   });
 
-  async function submitForm() {
+  async function submitForm(): Promise<void> {
     if (!form.value.name) return;
 
     await CategoryService.create({
@@ -127,5 +139,5 @@
     });
 
     router.push('/categories');
-  };
+  }
 </script>

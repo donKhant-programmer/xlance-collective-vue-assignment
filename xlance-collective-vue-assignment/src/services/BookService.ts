@@ -1,8 +1,6 @@
-import type { Book } from '@/models/book';
+import { books } from "@/constants/books.constants";
+import type { Book } from "@/models/book";
 
-import { books as booksMock } from '@/constants/books';
-
-let books = [...booksMock];
 
 export class BookService {
   // Get all books
@@ -48,7 +46,10 @@ export class BookService {
 
   // Delete a book
   static async delete(id: number): Promise<void> {
-    books = books.filter((b) => b.id !== id);
+    const index = books.findIndex((b) => b.id === id);
+    if (index !== -1) {
+      books.splice(index, 1);
+    }
   }
 
   // Get book by id

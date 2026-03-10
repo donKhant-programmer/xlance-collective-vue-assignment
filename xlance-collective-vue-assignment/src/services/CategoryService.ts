@@ -1,8 +1,7 @@
-import { books } from '@/constants/books';
-import { categories as categoriesMock } from '@/constants/categories';
-import type { Category } from '@/models/category';
+import { books } from "@/constants/books.constants";
+import { categories } from "@/constants/categories.constants";
+import type { Category } from "@/models/category";
 
-let categories = [...categoriesMock];
 
 const delay = (ms = 200) => new Promise((res) => setTimeout(res, ms));
 
@@ -54,6 +53,11 @@ export class CategoryService {
 
   static async delete(id: number): Promise<void> {
     await delay();
-    categories = categories.filter((c) => c.id !== id);
+
+    const index = categories.findIndex((c) => c.id === id);
+
+    if (index !== -1) {
+      categories.splice(index, 1);
+    }
   }
 }
