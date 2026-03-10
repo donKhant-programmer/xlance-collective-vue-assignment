@@ -1,7 +1,6 @@
-import { books } from "@/constants/books.constants";
-import { categories } from "@/constants/categories.constants";
-import type { Category } from "@/models/category";
-
+import { books } from '@/constants/books.constants';
+import { categories } from '@/constants/categories.constants';
+import type { Category } from '@/models/category';
 
 const delay = (ms = 200) => new Promise((res) => setTimeout(res, ms));
 

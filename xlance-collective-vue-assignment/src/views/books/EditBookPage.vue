@@ -106,58 +106,54 @@
           </div>
 
           <div class="flex gap-6 flex-wrap">
-  <!-- Author -->
-  <Select v-model="form.authorId">
-    <SelectTrigger class="flex-1 rounded-xl border px-4 py-3" :style="inputStyle">
-      <SelectValue placeholder="Select an author..." />
-    </SelectTrigger>
+            <!-- Author -->
+            <Select v-model="form.authorId">
+              <SelectTrigger class="flex-1 rounded-xl border px-4 py-3" :style="inputStyle">
+                <SelectValue placeholder="Select an author..." />
+              </SelectTrigger>
 
-    <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
-      <SelectItem
-        v-for="author in authors"
-        :key="author.id"
-        :value="author.id"
-        class="select-item-hover"
-      >
-        {{ author.name }}
-      </SelectItem>
-    </SelectContent>
-  </Select>
+              <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
+                <SelectItem
+                  v-for="author in authors"
+                  :key="author.id"
+                  :value="author.id"
+                  class="select-item-hover"
+                >
+                  {{ author.name }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
 
-  <!-- Category -->
-  <Select v-model="form.categoryId">
-    <SelectTrigger class="flex-1 rounded-xl border px-4 py-3" :style="inputStyle">
-      <SelectValue placeholder="Select a category..." />
-    </SelectTrigger>
+            <!-- Category -->
+            <Select v-model="form.categoryId">
+              <SelectTrigger class="flex-1 rounded-xl border px-4 py-3" :style="inputStyle">
+                <SelectValue placeholder="Select a category..." />
+              </SelectTrigger>
 
-    <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
-      <SelectItem
-        v-for="cat in categories"
-        :key="cat.id"
-        :value="cat.id"
-        class="select-item-hover"
-      >
-        {{ cat.name }}
-      </SelectItem>
-    </SelectContent>
-  </Select>
-</div>
+              <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
+                <SelectItem
+                  v-for="cat in categories"
+                  :key="cat.id"
+                  :value="cat.id"
+                  class="select-item-hover"
+                >
+                  {{ cat.name }}
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-<!-- Status -->
-<Select v-model="form.status">
-  <SelectTrigger class="rounded-xl border px-4 py-3" :style="inputStyle">
-    <SelectValue />
-  </SelectTrigger>
+          <!-- Status -->
+          <Select v-model="form.status">
+            <SelectTrigger class="rounded-xl border px-4 py-3" :style="inputStyle">
+              <SelectValue />
+            </SelectTrigger>
 
-  <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
-    <SelectItem value="AVAILABLE" class="select-item-hover">
-      AVAILABLE
-    </SelectItem>
-    <SelectItem value="BORROWED" class="select-item-hover">
-      BORROWED
-    </SelectItem>
-  </SelectContent>
-</Select>
+            <SelectContent class="rounded-xl border shadow-lg" :style="inputStyle">
+              <SelectItem value="AVAILABLE" class="select-item-hover"> AVAILABLE </SelectItem>
+              <SelectItem value="BORROWED" class="select-item-hover"> BORROWED </SelectItem>
+            </SelectContent>
+          </Select>
 
           <!-- Description -->
           <div class="flex flex-col gap-2">

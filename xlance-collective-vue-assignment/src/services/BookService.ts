@@ -1,6 +1,5 @@
-import { books } from "@/constants/books.constants";
-import type { Book } from "@/models/book";
-
+import { books } from '@/constants/books.constants';
+import type { Book } from '@/models/book';
 
 export class BookService {
   // Get all books

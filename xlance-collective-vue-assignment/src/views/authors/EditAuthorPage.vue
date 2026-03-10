@@ -43,17 +43,13 @@
         </div>
 
         <Button
-  type="button"
-  @click="triggerFilePicker"
-  class="flex items-center gap-2 bg-[var(--color-blue)] text-white text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 overflow-hidden"
->
-  <img
-    src="/svg/add-photo.svg"
-    class="h-4 w-4 object-contain" 
-    alt="Add Photo"
-  />
-  Update Profile Photo
-</Button>
+          type="button"
+          @click="triggerFilePicker"
+          class="flex items-center gap-2 bg-[var(--color-blue)] text-white text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 overflow-hidden"
+        >
+          <img src="/svg/add-photo.svg" class="h-4 w-4 object-contain" alt="Add Photo" />
+          Update Profile Photo
+        </Button>
 
         <input
           type="file"
@@ -102,15 +98,9 @@
               <SelectContent
                 class="bg-[var(--color-input-bg)] border border-[var(--color-border)] text-[var(--color-text-primary)] rounded-xl"
               >
-                <SelectItem value="British" class="select-item-hover"
-                  >British</SelectItem
-                >
-                <SelectItem value="American" class="select-item-hover"
-                  >American</SelectItem
-                >
-                <SelectItem value="Japanese" class="select-item-hover"
-                  >Japanese</SelectItem
-                >
+                <SelectItem value="British" class="select-item-hover">British</SelectItem>
+                <SelectItem value="American" class="select-item-hover">American</SelectItem>
+                <SelectItem value="Japanese" class="select-item-hover">Japanese</SelectItem>
                 <SelectItem value="French" class="select-item-hover">French</SelectItem>
               </SelectContent>
             </Select>

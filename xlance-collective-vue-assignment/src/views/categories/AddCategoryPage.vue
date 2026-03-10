@@ -59,30 +59,19 @@
             class="w-full h-28 rounded-xl px-4 py-3 bg-[var(--color-input-bg)] border border-[var(--color-border)] text-[var(--color-text-primary)] placeholder:text-[var(--color-text-primary)] placeholder:opacity-70"
           />
         </div>
-<!-- TIP BOX -->
-<div class="flex items-start gap-2 bg-[var(--color-blue)]/10 rounded-xl p-3">
-  
-  <img
-    src="/svg/info-circle.svg"
-    class="h-4 w-4 mt-0.5 flex-shrink-0"
-  />
+        <!-- TIP BOX -->
+        <div class="flex items-start gap-2 bg-[var(--color-blue)]/10 rounded-xl p-3">
+          <img src="/svg/info-circle.svg" class="h-4 w-4 mt-0.5 flex-shrink-0" />
 
-  <div class="flex flex-col gap-1">
-    <span
-      class="font-medium text-xs"
-      style="color: var(--color-blue)"
-    >
-      Tip
-    </span>
+          <div class="flex flex-col gap-1">
+            <span class="font-medium text-xs" style="color: var(--color-blue)"> Tip </span>
 
-    <span
-      class="text-xs font-normal"
-      style="color: var(--color-text-secondary)"
-    >
-      Good category names are short and descriptive. You can later assign tags to specific books within these categories.
-    </span>
-  </div>
-</div>
+            <span class="text-xs font-normal" style="color: var(--color-text-secondary)">
+              Good category names are short and descriptive. You can later assign tags to specific
+              books within these categories.
+            </span>
+          </div>
+        </div>
         <!-- BUTTONS -->
         <div class="flex justify-end items-center gap-6 pt-4">
           <RouterLink

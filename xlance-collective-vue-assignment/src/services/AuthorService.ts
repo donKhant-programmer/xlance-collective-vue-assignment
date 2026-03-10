@@ -1,7 +1,6 @@
-import { authors } from "@/constants/authors.constants";
-import { books } from "@/constants/books.constants";
-import type { Author } from "@/models/author";
-
+import { authors } from '@/constants/authors.constants';
+import { books } from '@/constants/books.constants';
+import type { Author } from '@/models/author';
 
 export class AuthorService {
   static async getAll(): Promise<Author[]> {

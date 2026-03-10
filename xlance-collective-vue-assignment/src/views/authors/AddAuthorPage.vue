@@ -102,28 +102,20 @@
             </label>
 
             <Select v-model="form.nationality">
-  <SelectTrigger class="w-full rounded-xl border px-4 py-3" :style="inputStyle">
-    <SelectValue placeholder="Select country" />
-  </SelectTrigger>
+              <SelectTrigger class="w-full rounded-xl border px-4 py-3" :style="inputStyle">
+                <SelectValue placeholder="Select country" />
+              </SelectTrigger>
 
-  <SelectContent class="rounded-xl border" :style="inputStyle">
-    <SelectItem value="British" class="select-item-hover">
-      British
-    </SelectItem>
+              <SelectContent class="rounded-xl border" :style="inputStyle">
+                <SelectItem value="British" class="select-item-hover"> British </SelectItem>
 
-    <SelectItem value="American" class="select-item-hover">
-      American
-    </SelectItem>
+                <SelectItem value="American" class="select-item-hover"> American </SelectItem>
 
-    <SelectItem value="Japanese" class="select-item-hover">
-      Japanese
-    </SelectItem>
+                <SelectItem value="Japanese" class="select-item-hover"> Japanese </SelectItem>
 
-    <SelectItem value="French" class="select-item-hover">
-      French
-    </SelectItem>
-  </SelectContent>
-</Select>
+                <SelectItem value="French" class="select-item-hover"> French </SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <!-- Biography -->
