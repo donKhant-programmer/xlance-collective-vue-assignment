@@ -54,25 +54,176 @@
 }
 
 @layer utilities {
-  .select-item-hover {
-    color: var(--color-text-primary);
-  }
-
-  .select-item-hover:hover {
+  /* background colors */
+  .bg-blue {
     background-color: var(--color-blue);
-    color: var(--color-text-primary);
+  }
+  .bg-slate-900 {
+    background-color: var(--color-slate-900);
+  }
+  .bg-slate-800 {
+    background-color: var(--color-slate-800);
+  }
+  .bg-primary {
+    background-color: var(--color-bg-primary);
+  }
+  .bg-card {
+    background-color: var(--color-bg-card);
+  }
+  .bg-slate-700 {
+    background-color: var(--color-slate-700);
   }
 
+  /* text colors */
+  .text-primary {
+    color: var(--color-text-primary);
+  }
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+  .text-muted {
+    color: var(--color-text-muted);
+  }
+  .text-blue {
+    color: var(--color-blue);
+  }
+  .text-white {
+    color: #ffffff;
+  }
+
+  /* borders */
+  .border-default {
+    border-color: var(--color-border);
+  }
+  .border-slate-700 {
+    border-color: var(--color-slate-700);
+  }
+  .border-red {
+    border-color: var(--color-red);
+  }
+
+  /* navigation */
   .nav-link {
     color: var(--color-text-secondary);
     transition: color 0.2s ease;
   }
-
   .nav-link:hover {
     color: var(--color-blue);
   }
 
   .nav-link-active {
     color: var(--color-blue);
+  }
+
+  /* select hover */
+  .select-item-hover {
+    color: var(--color-text-primary);
+  }
+  .select-item-hover:hover {
+    background-color: var(--color-blue);
+    color: var(--color-text-primary);
+  }
+
+  /* badges */
+  .badge-default {
+    background-color: var(--color-badge-bg);
+  }
+  .badge-indigo {
+    color: var(--color-indigo-500);
+  }
+  .badge-green {
+    color: var(--color-green-400);
+  }
+  .badge-yellow {
+    color: var(--color-yellow-400);
+  }
+
+  /* helpers */
+  .progress-bg {
+    background-color: var(--color-slate-800);
+  }
+  .progress-fill {
+    background-color: var(--color-blue);
+  }
+
+  .table-row-bg {
+    background-color: var(--color-slate-900);
+  }
+
+  /* button helper */
+  .btn-blue {
+    background-color: var(--color-blue);
+  }
+
+  .input-bg {
+    background-color: var(--color-input-bg);
+  }
+
+  .input-border {
+    border-color: var(--color-border);
+  }
+
+  .input-text {
+    color: var(--color-text-primary);
+  }
+
+  /* hover text blue for links */
+  .hover-text-blue:hover {
+    color: var(--color-blue);
+  }
+
+  /* general transition helper */
+  .transition-all {
+    transition: all 0.2s ease;
+  }
+
+  /* spacing & flex helpers are mostly Tailwind, but ensure these exist */
+  .gap-1 {
+    gap: 0.25rem;
+  }
+  .gap-2 {
+    gap: 0.5rem;
+  }
+  .gap-6 {
+    gap: 1.5rem;
+  }
+  .flex {
+    display: flex;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .text-sm {
+    font-size: 0.875rem;
+  }
+  .font-normal {
+    font-weight: 400;
+  }
+
+  /* sizing & shape */
+  .w-10 {
+    width: 2.5rem;
+  }
+  .h-10 {
+    height: 2.5rem;
+  }
+  .rounded-full {
+    border-radius: 9999px;
+  }
+  .rounded-lg {
+    border-radius: 0.5rem;
+  }
+
+  /* overflow helpers */
+  .overflow-hidden {
+    overflow: hidden;
+  }
+
+  /* object fit */
+  .object-cover {
+    object-fit: cover;
   }
 }

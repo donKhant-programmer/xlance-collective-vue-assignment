@@ -9,8 +9,7 @@
 
       <Button
         as-child
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-white"
-        style="background-color: var(--color-blue)"
+        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-white bg-blue"
       >
         <RouterLink to="/categories/add" class="inline-flex items-center gap-2">
           <Plus :size="20" />
@@ -23,29 +22,20 @@
     <Input
       v-model="search"
       placeholder="Search categories by name or description..."
-      class="w-full max-w-lg mt-6 rounded-xl border px-4 py-3 text-sm"
-      style="
-        background-color: var(--color-slate-900);
-        border-color: var(--color-border);
-        color: var(--color-text-primary);
-      "
+      class="w-full max-w-lg mt-6 rounded-xl border px-4 py-3 text-sm bg-slate-900 border-default text-primary"
     />
 
     <!-- TABLE -->
-    <div class="overflow-hidden rounded-xl border" style="border-color: var(--color-border)">
+    <div class="overflow-hidden rounded-xl border border-default">
       <Table class="[&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
         <!-- HEADER -->
-        <TableHeader style="background-color: var(--color-slate-800)">
-          <TableRow class="border-b" style="border-color: var(--color-border)">
-            <TableHead style="color: var(--color-text-muted); width: 1.5fr"
-              >Category Name</TableHead
-            >
-            <TableHead style="color: var(--color-text-muted); width: 3fr">Description</TableHead>
-            <TableHead style="color: var(--color-text-muted); width: 0.8fr">Book Count</TableHead>
-            <TableHead style="color: var(--color-text-muted); width: 1fr">Last Updated</TableHead>
-            <TableHead class="text-right" style="color: var(--color-text-muted); width: 120px"
-              >Actions</TableHead
-            >
+        <TableHeader class="bg-slate-800">
+          <TableRow class="border-b border-default">
+            <TableHead class="text-muted th-category-name">Category Name</TableHead>
+            <TableHead class="text-muted th-description">Description</TableHead>
+            <TableHead class="text-muted th-count">Book Count</TableHead>
+            <TableHead class="text-muted th-updated">Last Updated</TableHead>
+            <TableHead class="text-muted th-actions">Actions</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -54,11 +44,10 @@
           <TableRow
             v-for="category in filteredCategories"
             :key="category.id"
-            class="border-b last:border-none bg-[var(--color-slate-900)]"
-            :style="{ borderColor: 'var(--color-border)' }"
+            class="border-b last:border-none bg-slate-900 border-default"
           >
             <!-- CATEGORY NAME -->
-            <TableCell style="background-color: var(--color-slate-900)">
+            <TableCell class="bg-slate-900">
               <div class="flex items-center gap-3">
                 <img v-if="category.iconUrl" :src="category.iconUrl" class="h-5 w-5" />
                 <span class="text-sm text-white">{{ category.name }}</span>
@@ -66,31 +55,26 @@
             </TableCell>
 
             <!-- DESCRIPTION -->
-            <TableCell style="background-color: var(--color-slate-900)">
-              <span class="text-sm text-[var(--color-text-secondary)]">{{
-                category.description
-              }}</span>
+            <TableCell class="bg-slate-900">
+              <span class="text-sm text-secondary">{{ category.description }}</span>
             </TableCell>
 
             <!-- BOOK COUNT -->
-            <TableCell style="background-color: var(--color-slate-900)">
-              <Badge
-                class="px-2 py-1 text-xs font-medium rounded"
-                style="background-color: var(--color-indigo-100); color: var(--color-indigo-500)"
-              >
+            <TableCell class="bg-slate-900">
+              <Badge class="px-2 py-1 text-xs font-medium rounded bg-indigo-100 text-indigo-500">
                 {{ category.bookCount }} Books
               </Badge>
             </TableCell>
 
             <!-- LAST UPDATED -->
-            <TableCell style="background-color: var(--color-slate-900)">
-              <span class="text-sm text-[var(--color-text-secondary)]">
+            <TableCell class="bg-slate-900">
+              <span class="text-sm text-secondary">
                 {{ timeAgo(category.updatedAt ?? new Date().toISOString()) }}
               </span>
             </TableCell>
 
             <!-- ACTIONS -->
-            <TableCell class="text-right" style="background-color: var(--color-slate-900)">
+            <TableCell class="text-right bg-slate-900">
               <div class="flex justify-end gap-3 text-slate-400">
                 <Button
                   variant="ghost"
@@ -147,14 +131,14 @@
 
   onMounted(loadData);
 
-  const filteredCategories = computed(function () {
+  const filteredCategories = computed(function (): Category[] {
     return categories.value.filter(function (c) {
       return (c.name + c.description).toLowerCase().includes(search.value.toLowerCase());
     });
   });
 
   // utils/time.ts
-  function timeAgo(dateStr: string) {
+  function timeAgo(dateStr: string): string {
     const date = new Date(dateStr);
     const diff = (Date.now() - date.getTime()) / 1000; // seconds
 

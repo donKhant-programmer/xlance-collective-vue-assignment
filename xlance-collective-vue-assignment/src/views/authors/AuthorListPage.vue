@@ -12,8 +12,7 @@
 
       <Button
         as-child
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-white transition-colors"
-        style="background-color: var(--color-blue)"
+        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-white bg-blue transition-colors"
       >
         <RouterLink to="/authors/add" class="inline-flex items-center gap-2">
           <Plus :size="20" />
@@ -26,35 +25,22 @@
     <Input
       v-model="search"
       placeholder="Filter by name or nationality..."
-      class="w-full max-w-lg mt-6 rounded-xl border px-4 py-3 text-sm outline-none appearance-none"
-      style="
-        background-color: var(--color-slate-900);
-        border-color: var(--color-border);
-        color: var(--color-text-primary);
-      "
+      class="w-full max-w-lg mt-6 rounded-xl border border-default px-4 py-3 text-sm text-primary bg-slate-900 outline-none appearance-none"
     />
 
     <!-- TABLE -->
-    <div class="overflow-hidden rounded-xl border" style="border-color: var(--color-border)">
+    <div class="overflow-hidden rounded-xl border border-default">
       <Table class="[&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
         <!-- HEADER -->
-        <TableHeader style="background-color: var(--color-slate-800)">
-          <TableRow class="border-b" style="border-color: var(--color-border)">
-            <TableHead class="text-left" style="color: var(--color-text-muted); width: 2fr">
-              Author
-            </TableHead>
+        <TableHeader class="bg-slate-800">
+          <TableRow class="border-b border-default">
+            <TableHead class="text-left text-muted w-2fr"> Author </TableHead>
 
-            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1.3fr">
-              Nationality
-            </TableHead>
+            <TableHead class="text-left text-muted w-1-3fr"> Nationality </TableHead>
 
-            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1.3fr">
-              Catalog Size
-            </TableHead>
+            <TableHead class="text-left text-muted w-1-3fr"> Catalog Size </TableHead>
 
-            <TableHead class="text-right" style="color: var(--color-text-muted); width: 140px">
-              Actions
-            </TableHead>
+            <TableHead class="text-right text-muted w-140px"> Actions </TableHead>
           </TableRow>
         </TableHeader>
 
@@ -63,11 +49,10 @@
           <TableRow
             v-for="author in filteredAuthors"
             :key="author.id"
-            class="border-b last:border-none bg-[var(--color-slate-900)]"
-            :style="{ borderColor: 'var(--color-border)' }"
+            class="border-b last:border-none bg-slate-900 border-default"
           >
             <!-- AUTHOR COLUMN -->
-            <TableCell style="background-color: var(--color-slate-900)">
+            <TableCell class="bg-slate-900">
               <div class="flex items-center gap-3">
                 <div
                   class="h-10 w-10 rounded-full flex items-center justify-center overflow-hidden bg-[var(--color-slate-800)]"
@@ -89,28 +74,22 @@
             </TableCell>
 
             <!-- NATIONALITY -->
-            <TableCell style="background-color: var(--color-slate-900)">
-              <Badge
-                class="px-3 py-1 rounded-lg"
-                style="
-                  background-color: var(--color-slate-800);
-                  border-color: var(--color-slate-700);
-                  color: var(--color-text-secondary);
-                "
-              >
+            <TableCell class="bg-slate-900">
+              <Badge class="px-3 py-1 rounded-lg bg-slate-800 border-slate-700 text-secondary">
+                >
                 {{ author.nationality }}
               </Badge>
             </TableCell>
 
             <!-- CATALOG SIZE -->
-            <TableCell style="background-color: var(--color-slate-900)">
+            <TableCell class="bg-slate-900">
               <div class="flex items-center gap-4">
                 <span class="text-sm font-medium text-white"
                   >{{ getCatalogSize(author.id) }} Books</span
                 >
-                <div class="h-[6px] flex-1 bg-[var(--color-slate-800)] rounded">
+                <div class="h-[6px] flex-1 bg-progress-bg rounded">
                   <div
-                    class="h-[6px] bg-[var(--color-blue)] rounded"
+                    class="h-[6px] bg-progress-fill rounded"
                     :style="{ width: getCatalogPercent(getCatalogSize(author.id)) + '%' }"
                   />
                 </div>
@@ -118,7 +97,7 @@
             </TableCell>
 
             <!-- ACTIONS -->
-            <TableCell class="text-right" style="background-color: var(--color-slate-900)">
+            <TableCell class="text-right bg-slate-900">
               <div class="flex justify-end gap-3 text-slate-400">
                 <Button
                   variant="ghost"
@@ -182,13 +161,13 @@
     await loadAuthors();
   }
 
-  const filteredAuthors = computed(function () {
+  const filteredAuthors = computed(function (): Author[] {
     return authors.value.filter(function (a) {
       return (a.name + a.nationality).toLowerCase().includes(search.value.toLowerCase());
     });
   });
 
-  function getInitials(name: string) {
+  function getInitials(name: string): string {
     return name
       .split(' ')
       .map(function (n) {
@@ -199,20 +178,20 @@
       .toUpperCase();
   }
 
-  function getCatalogPercent(size: number) {
+  function getCatalogPercent(size: number): number {
     return (size / maxCatalogSize.value) * 100;
   }
 
-  const maxCatalogSize = computed(function () {
+  const maxCatalogSize = computed<number>(() => {
     return Math.max(
-      ...books.value.map(function (b) {
+      ...books.value.map((b) => {
         return b.authorId ? getCatalogSize(b.authorId) : 0;
       }),
       1,
     );
   });
 
-  function getCatalogSize(authorId: number) {
+  function getCatalogSize(authorId: number): number {
     return books.value.filter(function (b) {
       return b.authorId === authorId;
     }).length;

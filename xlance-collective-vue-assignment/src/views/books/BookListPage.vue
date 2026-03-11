@@ -12,8 +12,7 @@
 
       <Button
         as-child
-        class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-white"
-        style="background-color: var(--color-blue)"
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-white bg-blue"
       >
         <RouterLink to="/books/add">
           <Plus :size="20" />
@@ -26,39 +25,24 @@
     <Input
       v-model="search"
       placeholder="Search books by title, author, or category..."
-      class="w-full max-w-lg rounded-xl border px-4 py-3 text-sm"
-      style="
-        background-color: var(--color-slate-900);
-        border-color: var(--color-border);
-        color: var(--color-text-primary);
-      "
+      class="w-full max-w-lg rounded-xl border px-4 py-3 text-sm bg-slate-900 border-default text-primary"
     />
 
     <!-- TABLE -->
-    <div class="overflow-hidden rounded-xl border" style="border-color: var(--color-border)">
+    <div class="overflow-hidden rounded-xl border border-default">
       <Table class="[&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
         <!-- HEADER -->
-        <TableHeader style="background-color: var(--color-slate-800)">
-          <TableRow class="border-b" style="border-color: var(--color-slate-800)">
-            <TableHead class="text-left" style="color: var(--color-text-muted); width: 2fr">
-              Title
-            </TableHead>
+        <TableHeader class="bg-slate-800">
+          <TableRow class="border-b border-slate-800">
+            <TableHead class="text-left text-muted th-title"> Title </TableHead>
 
-            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1.5fr">
-              Author
-            </TableHead>
+            <TableHead class="text-left text-muted th-author"> Author </TableHead>
 
-            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1fr">
-              Category
-            </TableHead>
+            <TableHead class="text-left text-muted th-category"> Category </TableHead>
 
-            <TableHead class="text-left" style="color: var(--color-text-muted); width: 1fr">
-              Status
-            </TableHead>
+            <TableHead class="text-left text-muted th-status"> Status </TableHead>
 
-            <TableHead class="text-right" style="color: var(--color-text-muted); width: 1.5fr">
-              Actions
-            </TableHead>
+            <TableHead class="text-right text-muted th-actions"> Actions </TableHead>
           </TableRow>
         </TableHeader>
 
@@ -67,19 +51,12 @@
           <TableRow
             v-for="book in filteredBooks"
             :key="book.id"
-            class="border-b last:border-none bg-[var(--color-slate-900)]"
-            :style="{ borderColor: 'var(--color-border)' }"
+            class="border-b border-default last:border-none bg-slate-900"
           >
             <!-- TITLE -->
-            <TableCell style="background-color: var(--color-slate-900)">
+            <TableCell class="bg-slate-900">
               <div class="flex items-center gap-3">
-                <div
-                  class="h-14 w-10 rounded overflow-hidden border"
-                  style="
-                    background-color: var(--color-slate-800);
-                    border-color: var(--color-slate-700);
-                  "
-                >
+                <div class="h-14 w-10 rounded overflow-hidden border bg-slate-800 border-slate-700">
                   <img
                     v-if="book.coverImageUrl"
                     :src="book.coverImageUrl"
@@ -87,38 +64,32 @@
                   />
                 </div>
                 <div>
-                  <p class="text-sm" style="color: var(--color-text-primary)">{{ book.title }}</p>
-                  <p class="text-xs" style="color: var(--color-text-secondary)">
-                    Pub. {{ book.year }}
-                  </p>
+                  <p class="text-sm text-primary">{{ book.title }}</p>
+                  <p class="text-xs text-secondary">Pub. {{ book.year }}</p>
                 </div>
               </div>
             </TableCell>
 
             <!-- AUTHOR -->
-            <TableCell
-              style="color: var(--color-text-secondary); background-color: var(--color-slate-900)"
-              >{{ getAuthorName(book.authorId) }}</TableCell
-            >
+            <TableCell class="text-secondary bg-slate-900">{{
+              getAuthorName(book.authorId)
+            }}</TableCell>
 
             <!-- CATEGORY -->
-            <TableCell style="background-color: var(--color-slate-900)">
-              <Badge
-                class="px-3 py-1 rounded-full"
-                style="background-color: var(--color-badge-bg); color: var(--color-indigo-500)"
-              >
+            <TableCell class="bg-slate-900">
+              <Badge class="px-3 py-1 rounded-full badge-default badge-indigo">
                 {{ getCategoryName(book.categoryId) }}
               </Badge>
             </TableCell>
 
             <!-- STATUS -->
-            <TableCell style="background-color: var(--color-slate-900)">
+            <TableCell class="bg-slate-900">
               <Badge
                 class="px-3 py-1 rounded-full"
-                :style="
+                :class="
                   book.status === 'AVAILABLE'
-                    ? 'background-color: var(--color-badge-bg); color: var(--color-green-400)'
-                    : 'background-color: var(--color-badge-bg); color: var(--color-yellow-400)'
+                    ? 'px-3 py-1 rounded-full badge-default badge-green'
+                    : 'px-3 py-1 rounded-full badge-default badge-yellow'
                 "
               >
                 {{ book.status }}
@@ -126,7 +97,7 @@
             </TableCell>
 
             <!-- ACTIONS -->
-            <TableCell class="text-right" style="background-color: var(--color-slate-900)">
+            <TableCell class="text-right bg-slate-900">
               <div class="flex justify-end gap-3 text-slate-400">
                 <Button
                   variant="ghost"
@@ -181,7 +152,7 @@
   const books = ref<Book[]>([]);
   const search = ref('');
 
-  function getCategoryName(id: number) {
+  function getCategoryName(id: number): string {
     return (
       categories.value.find(function (c) {
         return c.id === id;
@@ -206,7 +177,7 @@
 
   onMounted(loadData);
 
-  const filteredBooks = computed(function () {
+  const filteredBooks = computed(function (): Book[] {
     return books.value.filter(function (b) {
       return (b.title + getAuthorName(b.authorId) + getCategoryName(b.categoryId))
         .toLowerCase()
@@ -214,7 +185,7 @@
     });
   });
 
-  function getAuthorName(id: number) {
+  function getAuthorName(id: number): string {
     return (
       authors.value.find(function (a) {
         return a.id === id;
