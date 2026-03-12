@@ -3,16 +3,16 @@
     <!-- HEADER -->
     <div class="flex items-start justify-between">
       <div>
-        <h1 class="text-4xl font-black text-white">Book Directory</h1>
+        <h1 class="text-4xl font-black text-primary">Book Directory</h1>
 
-        <p class="mt-2 max-w-xl text-base text-slate-400">
+        <p class="mt-2 max-w-xl text-base text-secondary">
           Manage your Book List in the order you would like to show...
         </p>
       </div>
 
       <Button
         as-child
-        class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-white bg-blue"
+        class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-primary bg-blue"
       >
         <RouterLink to="/books/add">
           <Plus :size="20" />
@@ -25,11 +25,11 @@
     <Input
       v-model="search"
       placeholder="Search books by title, author, or category..."
-      class="w-full max-w-lg rounded-xl border px-4 py-3 text-sm bg-slate-900 border-default text-primary"
+      class="w-full max-w-lg rounded-xl border px-4 py-3 text-sm bg-slate-900 border-border text-primary"
     />
 
     <!-- TABLE -->
-    <div class="overflow-hidden rounded-xl border border-default">
+    <div class="overflow-hidden rounded-xl border border-border">
       <Table class="[&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
         <!-- HEADER -->
         <TableHeader class="bg-slate-800">
@@ -51,7 +51,7 @@
           <TableRow
             v-for="book in filteredBooks"
             :key="book.id"
-            class="border-b border-default last:border-none bg-slate-900"
+            class="border-b border-border last:border-none bg-slate-900"
           >
             <!-- TITLE -->
             <TableCell class="bg-slate-900">
@@ -98,11 +98,11 @@
 
             <!-- ACTIONS -->
             <TableCell class="text-right bg-slate-900">
-              <div class="flex justify-end gap-3 text-slate-400">
+              <div class="flex justify-end gap-3 text-secondary">
                 <Button
                   variant="ghost"
                   size="icon"
-                  class="hover:bg-transparent hover:text-white"
+                  class="hover:bg-transparent hover:text-primary"
                   @click="$router.push(`/books/edit/${book.id}`)"
                 >
                   <Pencil :size="18" />

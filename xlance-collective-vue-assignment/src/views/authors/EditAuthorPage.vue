@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen bg-primary flex justify-center items-start py-12 px-4">
+  <section class="min-h-screen bg-slate-900 flex justify-center items-start py-12 px-4">
     <div class="w-full max-w-3xl">
       <!-- Breadcrumb + Back -->
       <div class="flex items-center justify-between mb-8">
@@ -11,7 +11,7 @@
 
         <RouterLink
           to="/authors"
-          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-default text-primary text-sm select-item-hover transition"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-primary text-sm select-item-hover transition"
         >
           ← Back to List
         </RouterLink>
@@ -25,13 +25,13 @@
 
       <!-- Edit Header -->
       <div
-        class="p-8 rounded-2xl flex items-center justify-between gap-4 bg-card border border-default mb-8"
+        class="p-8 rounded-2xl flex items-center justify-between gap-4 bg-card border border-border mb-8"
       >
         <div class="flex items-center gap-4">
           <img
             :src="form.imageUrl || '/placeholder.png'"
             alt="Author"
-            class="w-20 h-20 rounded-2xl border border-default object-cover"
+            class="w-20 h-20 rounded-2xl border border-border object-cover"
           />
           <span class="text-primary font-bold text-[20px]">
             {{ form.name || 'Author Name' }}
@@ -41,7 +41,7 @@
         <Button
           type="button"
           @click="triggerFilePicker"
-          class="flex items-center gap-2 btn-blue text-white text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 overflow-hidden"
+          class="flex items-center gap-2 bg-blue hover:bg-blue/90 text-primary text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 overflow-hidden"
         >
           <img src="/svg/add-photo.svg" class="h-4 w-4 object-contain" alt="Add Photo" />
           Update Profile Photo
@@ -58,7 +58,7 @@
 
       <!-- FORM -->
       <form
-        class="p-10 rounded-2xl bg-card border border-default space-y-8"
+        class="p-10 rounded-2xl bg-card border border-border space-y-8"
         @submit.prevent="submitForm"
       >
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -72,7 +72,7 @@
             <Input
               v-model="form.name"
               placeholder="e.g., Haruki Murakami"
-              class="w-full rounded-xl border px-4 py-3 input-bg input-border input-text placeholder:text-primary placeholder:opacity-70"
+              class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
             />
           </div>
 
@@ -85,12 +85,12 @@
 
             <Select v-model="form.nationality">
               <SelectTrigger
-                class="w-full rounded-xl border px-4 py-3 input-bg input-border input-text"
+                class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
               >
                 <SelectValue placeholder="Select country" />
               </SelectTrigger>
 
-              <SelectContent class="input-bg border border-default input-text rounded-xl">
+              <SelectContent class="input-bg border border-border input-text rounded-xl">
                 <SelectItem value="British" class="select-item-hover">British</SelectItem>
                 <SelectItem value="American" class="select-item-hover">American</SelectItem>
                 <SelectItem value="Japanese" class="select-item-hover">Japanese</SelectItem>
@@ -106,7 +106,7 @@
             <Input
               type="date"
               v-model="form.dob"
-              class="w-full rounded-xl border px-4 py-3 pr-10 input-bg input-border input-text appearance-none"
+              class="w-full rounded-xl border px-4 py-3 pr-10 bg-slate-900 border-border text-primary appearance-none"
             />
           </div>
 
@@ -117,7 +117,7 @@
             <Input
               v-model="form.genre"
               placeholder="e.g., Magical Realism"
-              class="w-full rounded-xl border px-4 py-3 input-bg input-border input-text placeholder:text-primary placeholder:opacity-70"
+              class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
             />
           </div>
         </div>
@@ -129,7 +129,7 @@
           <Textarea
             v-model="form.bio"
             placeholder="Write a brief biography of the author..."
-            class="w-full rounded-xl border px-4 py-3 input-bg input-border input-text placeholder:text-primary placeholder:opacity-70 h-40"
+            class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70 h-40"
           />
 
           <p class="text-xs text-secondary">Recommended length: 100–500 words</p>
@@ -141,7 +141,10 @@
             Cancel
           </RouterLink>
 
-          <Button type="submit" class="btn-blue text-white px-8 py-2.5 rounded-xl hover:opacity-90">
+          <Button
+            type="submit"
+            class="bg-blue hover:bg-blue/90 text-primary px-8 py-2.5 rounded-xl hover:opacity-90"
+          >
             Save Changes
           </Button>
         </div>

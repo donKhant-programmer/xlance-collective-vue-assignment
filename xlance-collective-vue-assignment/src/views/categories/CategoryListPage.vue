@@ -3,13 +3,13 @@
     <!-- HEADER -->
     <div class="flex items-start justify-between">
       <div>
-        <h1 class="text-4xl font-black text-white">Categories</h1>
-        <p class="mt-2 max-w-xl text-slate-400 text-base">Organize and classify your collection.</p>
+        <h1 class="text-4xl font-black text-primary">Categories</h1>
+        <p class="mt-2 max-w-xl text-secondary text-base">Organize and classify your collection.</p>
       </div>
 
       <Button
         as-child
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-white bg-blue"
+        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-primary bg-blue"
       >
         <RouterLink to="/categories/add" class="inline-flex items-center gap-2">
           <Plus :size="20" />
@@ -22,15 +22,15 @@
     <Input
       v-model="search"
       placeholder="Search categories by name or description..."
-      class="w-full max-w-lg mt-6 rounded-xl border px-4 py-3 text-sm bg-slate-900 border-default text-primary"
+      class="w-full max-w-lg mt-6 rounded-xl border px-4 py-3 text-sm bg-slate-900 border-border text-primary"
     />
 
     <!-- TABLE -->
-    <div class="overflow-hidden rounded-xl border border-default">
+    <div class="overflow-hidden rounded-xl border border-border">
       <Table class="[&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
         <!-- HEADER -->
         <TableHeader class="bg-slate-800">
-          <TableRow class="border-b border-default">
+          <TableRow class="border-b border-border">
             <TableHead class="text-muted th-category-name">Category Name</TableHead>
             <TableHead class="text-muted th-description">Description</TableHead>
             <TableHead class="text-muted th-count">Book Count</TableHead>
@@ -44,13 +44,13 @@
           <TableRow
             v-for="category in filteredCategories"
             :key="category.id"
-            class="border-b last:border-none bg-slate-900 border-default"
+            class="border-b last:border-none bg-slate-900 border-border"
           >
             <!-- CATEGORY NAME -->
             <TableCell class="bg-slate-900">
               <div class="flex items-center gap-3">
                 <img v-if="category.iconUrl" :src="category.iconUrl" class="h-5 w-5" />
-                <span class="text-sm text-white">{{ category.name }}</span>
+                <span class="text-sm text-primary">{{ category.name }}</span>
               </div>
             </TableCell>
 
@@ -75,11 +75,11 @@
 
             <!-- ACTIONS -->
             <TableCell class="text-right bg-slate-900">
-              <div class="flex justify-end gap-3 text-slate-400">
+              <div class="flex justify-end gap-3 text-secondary">
                 <Button
                   variant="ghost"
                   size="icon"
-                  class="hover:bg-transparent hover:text-white"
+                  class="hover:bg-transparent hover:text-primary"
                   @click="$router.push(`/categories/edit/${category.id}`)"
                 >
                   <Pencil :size="18" />

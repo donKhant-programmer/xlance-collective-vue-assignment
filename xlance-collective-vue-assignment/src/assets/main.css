@@ -7,7 +7,7 @@
     --color-text-primary: #f1f5f9;
     --color-text-secondary: #94a3b8;
     --color-text-muted: #64748b;
-    --color-bg-primary: #101922;
+    --color-bg-slate-900: #101922;
     --color-bg-card: #192633;
     --color-border: #324d67;
     --color-blue: #137fec;
@@ -54,59 +54,12 @@
 }
 
 @layer utilities {
-  /* background colors */
-  .bg-blue {
-    background-color: var(--color-blue);
-  }
-  .bg-slate-900 {
-    background-color: var(--color-slate-900);
-  }
-  .bg-slate-800 {
-    background-color: var(--color-slate-800);
-  }
-  .bg-primary {
-    background-color: var(--color-bg-primary);
-  }
-  .bg-card {
-    background-color: var(--color-bg-card);
-  }
-  .bg-slate-700 {
-    background-color: var(--color-slate-700);
-  }
-
-  /* text colors */
-  .text-primary {
-    color: var(--color-text-primary);
-  }
-  .text-secondary {
-    color: var(--color-text-secondary);
-  }
-  .text-muted {
-    color: var(--color-text-muted);
-  }
-  .text-blue {
-    color: var(--color-blue);
-  }
-  .text-white {
-    color: #ffffff;
-  }
-
-  /* borders */
-  .border-default {
-    border-color: var(--color-border);
-  }
-  .border-slate-700 {
-    border-color: var(--color-slate-700);
-  }
-  .border-red {
-    border-color: var(--color-red);
-  }
-
   /* navigation */
   .nav-link {
     color: var(--color-text-secondary);
     transition: color 0.2s ease;
   }
+
   .nav-link:hover {
     color: var(--color-blue);
   }
@@ -119,6 +72,7 @@
   .select-item-hover {
     color: var(--color-text-primary);
   }
+
   .select-item-hover:hover {
     background-color: var(--color-blue);
     color: var(--color-text-primary);
@@ -128,12 +82,15 @@
   .badge-default {
     background-color: var(--color-badge-bg);
   }
+
   .badge-indigo {
     color: var(--color-indigo-500);
   }
+
   .badge-green {
     color: var(--color-green-400);
   }
+
   .badge-yellow {
     color: var(--color-yellow-400);
   }
@@ -142,6 +99,7 @@
   .progress-bg {
     background-color: var(--color-slate-800);
   }
+
   .progress-fill {
     background-color: var(--color-blue);
   }
@@ -170,60 +128,5 @@
   /* hover text blue for links */
   .hover-text-blue:hover {
     color: var(--color-blue);
-  }
-
-  /* general transition helper */
-  .transition-all {
-    transition: all 0.2s ease;
-  }
-
-  /* spacing & flex helpers are mostly Tailwind, but ensure these exist */
-  .gap-1 {
-    gap: 0.25rem;
-  }
-  .gap-2 {
-    gap: 0.5rem;
-  }
-  .gap-6 {
-    gap: 1.5rem;
-  }
-  .flex {
-    display: flex;
-  }
-  .items-center {
-    align-items: center;
-  }
-  .justify-between {
-    justify-content: space-between;
-  }
-  .text-sm {
-    font-size: 0.875rem;
-  }
-  .font-normal {
-    font-weight: 400;
-  }
-
-  /* sizing & shape */
-  .w-10 {
-    width: 2.5rem;
-  }
-  .h-10 {
-    height: 2.5rem;
-  }
-  .rounded-full {
-    border-radius: 9999px;
-  }
-  .rounded-lg {
-    border-radius: 0.5rem;
-  }
-
-  /* overflow helpers */
-  .overflow-hidden {
-    overflow: hidden;
-  }
-
-  /* object fit */
-  .object-cover {
-    object-fit: cover;
   }
 }

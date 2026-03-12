@@ -3,8 +3,8 @@
     <!-- HEADER -->
     <div class="flex items-start justify-between">
       <div>
-        <h1 class="text-4xl font-black text-white">Author Directory</h1>
-        <p class="mt-2 max-w-xl text-slate-400 text-base">
+        <h1 class="text-4xl font-black text-primary">Author Directory</h1>
+        <p class="mt-2 max-w-xl text-secondary text-base">
           Manage your global database of literary contributors. Track their works and metadata from
           a centralized dashboard.
         </p>
@@ -12,7 +12,7 @@
 
       <Button
         as-child
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-white bg-blue transition-colors"
+        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-primary bg-blue transition-colors"
       >
         <RouterLink to="/authors/add" class="inline-flex items-center gap-2">
           <Plus :size="20" />
@@ -25,15 +25,15 @@
     <Input
       v-model="search"
       placeholder="Filter by name or nationality..."
-      class="w-full max-w-lg mt-6 rounded-xl border border-default px-4 py-3 text-sm text-primary bg-slate-900 outline-none appearance-none"
+      class="w-full max-w-lg mt-6 rounded-xl border border-border px-4 py-3 text-sm text-primary bg-slate-900 outline-none appearance-none"
     />
 
     <!-- TABLE -->
-    <div class="overflow-hidden rounded-xl border border-default">
+    <div class="overflow-hidden rounded-xl border border-border">
       <Table class="[&_th]:px-6 [&_th]:py-4 [&_td]:px-6 [&_td]:py-4">
         <!-- HEADER -->
         <TableHeader class="bg-slate-800">
-          <TableRow class="border-b border-default">
+          <TableRow class="border-b border-border">
             <TableHead class="text-left text-muted w-2fr"> Author </TableHead>
 
             <TableHead class="text-left text-muted w-1-3fr"> Nationality </TableHead>
@@ -49,7 +49,7 @@
           <TableRow
             v-for="author in filteredAuthors"
             :key="author.id"
-            class="border-b last:border-none bg-slate-900 border-default"
+            class="border-b last:border-none bg-slate-900 border-border"
           >
             <!-- AUTHOR COLUMN -->
             <TableCell class="bg-slate-900">
@@ -67,8 +67,8 @@
                   </span>
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-sm text-white font-normal">{{ author.name }}</span>
-                  <span class="text-xs text-slate-400 font-normal">{{ author.genre }}</span>
+                  <span class="text-sm text-primary font-normal">{{ author.name }}</span>
+                  <span class="text-xs text-secondary font-normal">{{ author.genre }}</span>
                 </div>
               </div>
             </TableCell>
@@ -84,7 +84,7 @@
             <!-- CATALOG SIZE -->
             <TableCell class="bg-slate-900">
               <div class="flex items-center gap-4">
-                <span class="text-sm font-medium text-white"
+                <span class="text-sm font-medium text-primary"
                   >{{ getCatalogSize(author.id) }} Books</span
                 >
                 <div class="h-[6px] flex-1 bg-progress-bg rounded">
@@ -98,11 +98,11 @@
 
             <!-- ACTIONS -->
             <TableCell class="text-right bg-slate-900">
-              <div class="flex justify-end gap-3 text-slate-400">
+              <div class="flex justify-end gap-3 text-secondary">
                 <Button
                   variant="ghost"
                   size="icon"
-                  class="hover:bg-transparent hover:text-white"
+                  class="hover:bg-transparent hover:text-primary"
                   @click="$router.push(`/authors/edit/${author.id}`)"
                 >
                   <Pencil :size="18" />

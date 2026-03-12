@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen flex justify-center items-start py-12 px-4 bg-primary">
+  <section class="min-h-screen flex justify-center items-start py-12 px-4 bg-slate-900">
     <div class="w-full max-w-3xl space-y-8">
       <!-- Breadcrumb + Back -->
       <div class="flex items-center justify-between">
@@ -27,7 +27,7 @@
       </div>
 
       <!-- FORM CARD -->
-      <Card class="p-10 space-y-8 border border-default bg-card">
+      <Card class="p-10 space-y-8 border border-border bg-card">
         <form @submit.prevent="submitForm" class="space-y-8">
           <!-- Author Portrait -->
           <div class="space-y-2">
@@ -37,7 +37,7 @@
               @click="triggerFilePicker"
               @dragover.prevent
               @drop.prevent="handleDrop"
-              class="relative flex items-center justify-center border-2 border-default bg-primary rounded-lg h-56 cursor-pointer overflow-hidden"
+              class="relative flex items-center justify-center border-2 border-border bg-slate-900 rounded-lg h-56 cursor-pointer overflow-hidden"
             >
               <img
                 v-if="form.imageUrl"
@@ -70,7 +70,7 @@
             <Input
               v-model="form.name"
               placeholder="e.g., George Orwell"
-              class="w-full rounded-xl border px-4 py-3 input-bg input-border input-text"
+              class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
             />
           </div>
 
@@ -84,12 +84,12 @@
 
             <Select v-model="form.nationality">
               <SelectTrigger
-                class="w-full rounded-xl border px-4 py-3 input-bg input-border input-text"
+                class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
               >
                 <SelectValue placeholder="Select country" />
               </SelectTrigger>
 
-              <SelectContent class="rounded-xl border input-bg input-border input-text">
+              <SelectContent class="rounded-xl border bg-slate-900 border-border text-primary">
                 <SelectItem value="British" class="select-item-hover"> British </SelectItem>
 
                 <SelectItem value="American" class="select-item-hover"> American </SelectItem>
@@ -108,7 +108,7 @@
             <Textarea
               v-model="form.biography"
               placeholder="Write a brief biography of the author..."
-              class="h-40 rounded-xl border px-4 py-3 input-bg input-border input-text"
+              class="h-40 rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
             ></Textarea>
 
             <p class="text-xs text-secondary">Recommended length: 100–500 words</p>
@@ -120,7 +120,7 @@
               Cancel
             </RouterLink>
 
-            <Button type="submit" class="px-8 py-2.5 rounded-xl text-white bg-blue">
+            <Button type="submit" class="px-8 py-2.5 rounded-xl text-primary bg-blue">
               Save Author
             </Button>
           </div>

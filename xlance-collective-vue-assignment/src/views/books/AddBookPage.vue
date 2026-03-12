@@ -1,5 +1,5 @@
 <template>
-  <section class="space-y-8 p-8 min-h-screen bg-primary">
+  <section class="space-y-8 p-8 min-h-screen bg-slate-900">
     <!-- Breadcrumb + Back -->
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-4 text-sm font-medium">
@@ -26,7 +26,7 @@
     </div>
 
     <!-- FORM CARD -->
-    <Card class="mx-auto max-w-4xl p-10 space-y-10 bg-card border border-default">
+    <Card class="mx-auto max-w-4xl p-10 space-y-10 bg-card border border-border">
       <form @submit.prevent="submitForm" class="space-y-10">
         <!-- Cover Image -->
         <div class="flex flex-col gap-3">
@@ -36,7 +36,7 @@
             @click="triggerFilePicker"
             @dragover.prevent
             @drop.prevent="handleDrop"
-            class="relative flex items-center justify-center border-2 border-default rounded-lg h-64 cursor-pointer overflow-hidden bg-primary"
+            class="relative flex items-center justify-center border-2 border-border rounded-lg h-64 cursor-pointer overflow-hidden bg-slate-900"
           >
             <!-- Preview -->
             <img
@@ -74,14 +74,14 @@
             <Input
               v-model="form.title"
               placeholder="e.g. The Great Gatsby"
-              class="flex-1 rounded-xl border px-4 py-3 input-bg input-border input-text"
+              class="flex-1 rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
             />
 
             <Input
               v-model="form.year"
               type="number"
               placeholder="e.g. 1925"
-              class="flex-1 rounded-xl border px-4 py-3 input-bg input-border input-text"
+              class="flex-1 rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
             />
           </div>
 
@@ -89,12 +89,12 @@
             <!-- Author -->
             <Select v-model="form.authorId">
               <SelectTrigger
-                class="flex-1 rounded-xl border px-4 py-3 input-bg input-border input-text"
+                class="flex-1 rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
               >
                 <SelectValue placeholder="Select an author..." />
               </SelectTrigger>
 
-              <SelectContent class="rounded-xl border border-default shadow-lg input-bg input-text">
+              <SelectContent class="rounded-xl border border-border shadow-lg input-bg input-text">
                 <SelectItem
                   v-for="author in authors"
                   :key="author.id"
@@ -109,12 +109,12 @@
             <!-- Category -->
             <Select v-model="form.categoryId">
               <SelectTrigger
-                class="flex-1 rounded-xl border px-4 py-3 input-bg input-border input-text"
+                class="flex-1 rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
               >
                 <SelectValue placeholder="Select a category..." />
               </SelectTrigger>
 
-              <SelectContent class="rounded-xl border border-default shadow-lg input-bg input-text">
+              <SelectContent class="rounded-xl border border-border shadow-lg input-bg input-text">
                 <SelectItem
                   v-for="cat in categories"
                   :key="cat.id"
@@ -129,11 +129,13 @@
 
           <!-- Status -->
           <Select v-model="form.status">
-            <SelectTrigger class="rounded-xl border px-4 py-3 input-bg input-border input-text">
+            <SelectTrigger
+              class="rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
+            >
               <SelectValue />
             </SelectTrigger>
 
-            <SelectContent class="rounded-xl border border-default shadow-lg input-bg input-text">
+            <SelectContent class="rounded-xl border border-border shadow-lg input-bg input-text">
               <SelectItem value="AVAILABLE" class="select-item-hover"> AVAILABLE </SelectItem>
 
               <SelectItem value="BORROWED" class="select-item-hover"> BORROWED </SelectItem>
@@ -147,7 +149,7 @@
             <Textarea
               v-model="form.description"
               placeholder="Brief overview..."
-              class="h-32 input-bg input-border input-text"
+              class="h-32 bg-slate-900 border-border text-primary"
             />
           </div>
         </div>
@@ -158,7 +160,10 @@
             Cancel
           </RouterLink>
 
-          <Button type="submit" class="px-8 py-2.5 rounded-xl text-white btn-blue">
+          <Button
+            type="submit"
+            class="px-8 py-2.5 rounded-xl text-primary bg-blue hover:bg-blue/90"
+          >
             Add to Library
           </Button>
         </div>

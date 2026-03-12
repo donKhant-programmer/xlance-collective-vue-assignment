@@ -11,7 +11,7 @@
 
         <RouterLink
           to="/categories"
-          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-default text-primary text-sm hover:bg-blue hover:text-white transition"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-primary text-sm hover:bg-blue hover:text-primary transition"
         >
           ← Back to List
         </RouterLink>
@@ -28,7 +28,7 @@
 
       <!-- FORM -->
       <form
-        class="p-10 rounded-2xl bg-card border border-default space-y-8"
+        class="p-10 rounded-2xl bg-card border border-border space-y-8"
         @submit.prevent="updateCategory"
       >
         <!-- NAME -->
@@ -41,7 +41,7 @@
           <Input
             v-model="form.name"
             placeholder="e.g., Science Fiction"
-            class="w-full rounded-xl px-4 py-3 input-bg input-border input-text placeholder:text-primary placeholder:opacity-70"
+            class="w-full rounded-xl px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
           />
 
           <p class="text-xs text-muted">
@@ -59,7 +59,7 @@
           <Textarea
             v-model="form.description"
             placeholder="Briefly describe what books belong in this category..."
-            class="w-full h-28 rounded-xl px-4 py-3 input-bg input-border input-text placeholder:text-primary placeholder:opacity-70"
+            class="w-full h-28 rounded-xl px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
           />
         </div>
 
@@ -85,7 +85,7 @@
 
           <Button
             type="submit"
-            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-white font-medium hover:opacity-90 btn-blue"
+            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-primary font-medium hover:opacity-90 bg-blue hover:bg-blue/90"
           >
             Update Category
           </Button>

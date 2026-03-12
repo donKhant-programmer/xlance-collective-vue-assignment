@@ -1,5 +1,5 @@
 <template>
-  <header class="border-b border-default bg-slate-900">
+  <header class="border-b border-border bg-slate-900">
     <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
       <!-- LEFT -->
       <div class="flex items-center gap-8 w-3/5">
