@@ -77,9 +77,9 @@
                 <span class="text-sm font-medium text-primary"
                   >{{ getCatalogSize(author.id) }} Books</span
                 >
-                <div class="h-[6px] flex-1 bg-progress-bg rounded">
+                <div class="h-[0.375rem] flex-1 bg-progress-bg rounded">
                   <div
-                    class="h-[6px] bg-progress-fill rounded"
+                    class="h-[0.375rem] bg-progress-fill rounded"
                     :style="{ width: getCatalogPercent(getCatalogSize(author.id)) + '%' }"
                   />
                 </div>

@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen bg-slate-900 flex justify-center items-start py-12 px-4">
+  <section class="min-h-screen flex justify-center items-start py-12 px-4">
     <div class="w-full max-w-3xl">
       <!-- Breadcrumb + Back -->
       <div class="flex items-center justify-between mb-8">
@@ -20,7 +20,7 @@
       <!-- Header -->
       <div class="mb-6">
         <h1 class="text-3xl font-bold text-primary">Add New Category</h1>
-        <p class="text-sm text-secondary">Fill in the details to create a new book category.</p>
+        <p class="text-sm text-secondary">Organize your collection by defining a new genre or classification.</p>
       </div>
 
       <!-- FORM -->
@@ -38,7 +38,7 @@
           <Input
             v-model="form.name"
             placeholder="e.g., Science Fiction"
-            class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
+            class="w-full rounded-xl border px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
           />
         </div>
 
@@ -52,16 +52,16 @@
           <Textarea
             v-model="form.description"
             placeholder="Briefly describe what books belong in this category..."
-            class="w-full h-28 rounded-xl px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
+            class="w-full h-28 rounded-xl px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
           />
         </div>
 
         <!-- TIP BOX -->
-        <div class="flex items-start gap-2 rounded-xl p-3 bg-blue-600">
+        <div class="flex items-start gap-2 rounded-xl p-3 bg-cardBg">
           <img src="/svg/info-circle.svg" class="h-4 w-4 mt-0.5 flex-shrink-0" />
 
-          <div class="flex flex-col gap-1">
-            <span class="font-medium text-xs text-blue"> Tip </span>
+          <div class="flex flex-col gap-4">
+            <span class="font-medium text-xs text-blue-500"> Tip </span>
 
             <span class="text-xs font-normal text-secondary">
               Good category names are short and descriptive. You can later assign tags to specific

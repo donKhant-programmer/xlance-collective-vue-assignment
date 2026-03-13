@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen bg-primary flex justify-center items-start py-12 px-4">
+  <section class="min-h-screen flex justify-center items-start py-12 px-4">
     <div class="w-full max-w-3xl">
       <!-- Breadcrumb + Back -->
       <div class="flex items-center justify-between mb-8">
@@ -41,7 +41,7 @@
           <Input
             v-model="form.name"
             placeholder="e.g., Science Fiction"
-            class="w-full rounded-xl px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
+            class="w-full rounded-xl px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
           />
 
           <p class="text-xs text-muted">
@@ -59,7 +59,7 @@
           <Textarea
             v-model="form.description"
             placeholder="Briefly describe what books belong in this category..."
-            class="w-full h-28 rounded-xl px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
+            class="w-full h-28 rounded-xl px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
           />
         </div>
 

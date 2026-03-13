@@ -11,6 +11,8 @@ export default {
 			primary: "var(--color-text-primary)",
 			secondary: "var(--color-text-secondary)",
 			muted: "var(--color-text-muted)",
+			cardBg: "#182A3C",
+			icon: "#137FEC",
 
 			layout: {
 				page: "var(--color-layout-page)",

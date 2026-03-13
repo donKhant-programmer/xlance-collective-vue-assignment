@@ -1,5 +1,5 @@
 <template>
-  <section class="min-h-screen bg-slate-900 flex justify-center items-start py-12 px-4">
+  <section class="min-h-screen flex justify-center items-start py-12 px-4">
     <div class="w-full max-w-3xl">
       <!-- Breadcrumb + Back -->
       <div class="flex items-center justify-between mb-8">
@@ -33,7 +33,7 @@
             alt="Author"
             class="w-20 h-20 rounded-2xl border border-border object-cover"
           />
-          <span class="text-primary font-bold text-[20px]">
+          <span class="text-primary font-bold text-xl">
             {{ form.name || 'Author Name' }}
           </span>
         </div>
@@ -72,7 +72,7 @@
             <Input
               v-model="form.name"
               placeholder="e.g., Haruki Murakami"
-              class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
+              class="w-full rounded-xl border px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
             />
           </div>
 
@@ -85,7 +85,7 @@
 
             <Select v-model="form.nationality">
               <SelectTrigger
-                class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary"
+                class="w-full rounded-xl border px-4 py-3 bg-form-field border-border text-primary"
               >
                 <SelectValue placeholder="Select country" />
               </SelectTrigger>
@@ -106,7 +106,7 @@
             <Input
               type="date"
               v-model="form.dob"
-              class="w-full rounded-xl border px-4 py-3 pr-10 bg-slate-900 border-border text-primary appearance-none"
+              class="w-full rounded-xl border px-4 py-3 pr-10 bg-form-field border-border text-primary appearance-none"
             />
           </div>
 
@@ -117,7 +117,7 @@
             <Input
               v-model="form.genre"
               placeholder="e.g., Magical Realism"
-              class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70"
+              class="w-full rounded-xl border px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
             />
           </div>
         </div>
@@ -129,7 +129,7 @@
           <Textarea
             v-model="form.bio"
             placeholder="Write a brief biography of the author..."
-            class="w-full rounded-xl border px-4 py-3 bg-slate-900 border-border text-primary placeholder:text-primary placeholder:opacity-70 h-40"
+            class="w-full rounded-xl border px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70 h-40"
           />
 
           <p class="text-xs text-secondary">Recommended length: 100–500 words</p>
