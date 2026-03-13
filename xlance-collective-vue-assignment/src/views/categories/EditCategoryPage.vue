@@ -11,7 +11,7 @@
 
         <RouterLink
           to="/categories"
-          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-primary text-sm hover:bg-blue hover:text-primary transition"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-primary text-sm hover:bg-blue-500 hover:text-primary transition"
         >
           ← Back to List
         </RouterLink>
@@ -85,7 +85,7 @@
 
           <Button
             type="submit"
-            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-primary font-medium hover:opacity-90 bg-blue hover:bg-blue/90"
+            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-primary font-medium hover:opacity-90 bg-blue-500 hover:bg-blue-600"
           >
             Update Category
           </Button>

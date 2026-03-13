@@ -11,7 +11,7 @@
 
         <RouterLink
           to="/categories"
-          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-primary text-sm hover:bg-blue hover:text-primary transition"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border text-primary text-sm hover:bg-blue-600 hover:text-primary transition"
         >
           ← Back to List
         </RouterLink>
@@ -57,7 +57,7 @@
         </div>
 
         <!-- TIP BOX -->
-        <div class="flex items-start gap-2 rounded-xl p-3 bg-blue/10">
+        <div class="flex items-start gap-2 rounded-xl p-3 bg-blue-600">
           <img src="/svg/info-circle.svg" class="h-4 w-4 mt-0.5 flex-shrink-0" />
 
           <div class="flex flex-col gap-1">
@@ -78,7 +78,7 @@
 
           <Button
             type="submit"
-            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-primary font-medium hover:opacity-90 bg-blue hover:bg-blue/90"
+            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-primary font-medium hover:opacity-90 bg-blue-500 hover:bg-blue-600"
           >
             Create Category
           </Button>

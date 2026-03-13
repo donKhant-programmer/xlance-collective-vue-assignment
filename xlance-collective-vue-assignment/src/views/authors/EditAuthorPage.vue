@@ -41,7 +41,7 @@
         <Button
           type="button"
           @click="triggerFilePicker"
-          class="flex items-center gap-2 bg-blue hover:bg-blue/90 text-primary text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 overflow-hidden"
+          class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-primary text-sm font-medium px-4 py-2 rounded-lg hover:opacity-90 overflow-hidden"
         >
           <img src="/svg/add-photo.svg" class="h-4 w-4 object-contain" alt="Add Photo" />
           Update Profile Photo
@@ -143,7 +143,7 @@
 
           <Button
             type="submit"
-            class="bg-blue hover:bg-blue/90 text-primary px-8 py-2.5 rounded-xl hover:opacity-90"
+            class="bg-blue-500 hover:bg-blue-600 text-primary px-8 py-2.5 rounded-xl hover:opacity-90"
           >
             Save Changes
           </Button>

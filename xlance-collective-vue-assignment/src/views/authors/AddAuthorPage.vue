@@ -120,7 +120,7 @@
               Cancel
             </RouterLink>
 
-            <Button type="submit" class="px-8 py-2.5 rounded-xl text-primary bg-blue">
+            <Button type="submit" class="px-8 py-2.5 rounded-xl text-primary bg-blue-500">
               Save Author
             </Button>
           </div>

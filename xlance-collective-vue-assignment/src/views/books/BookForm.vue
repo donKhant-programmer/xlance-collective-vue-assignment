@@ -127,7 +127,7 @@
             Cancel
           </RouterLink>
   
-          <Button type="submit" class="px-8 py-2.5 rounded-xl text-primary bg-blue hover:bg-blue/90">
+          <Button type="submit" class="px-8 py-2.5 rounded-xl text-primary bg-blue-500 hover:bg-blue-600">
             <slot>Submit</slot>
           </Button>
         </div>
