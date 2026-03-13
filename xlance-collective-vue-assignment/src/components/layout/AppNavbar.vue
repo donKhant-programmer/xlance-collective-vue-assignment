@@ -1,10 +1,10 @@
 <template>
-  <header class="border-b border-border bg-slate-900">
+  <header class="border-b border-border bg-page">
     <nav class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
       <!-- LEFT -->
       <div class="flex items-center gap-8 w-3/5">
         <RouterLink to="/" class="flex items-center gap-2">
-          <Library :size="22" class="text-blue" />
+          <Library :size="22" stroke="currentColor" class="text-blue-500" />
           <span class="font-bold text-lg text-primary">Library Manage</span>
         </RouterLink>
 

@@ -10,23 +10,14 @@
         </p>
       </div>
 
-      <Button
-        as-child
-        class="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-primary bg-blue"
-      >
-        <RouterLink to="/books/add">
-          <Plus :size="20" />
-          Add Book
-        </RouterLink>
-      </Button>
+      <AddButton to="/books/add" label="Add Book" />
     </div>
 
     <!-- SEARCH -->
-    <Input
-      v-model="search"
-      placeholder="Search books by title, author, or category..."
-      class="w-full max-w-lg rounded-xl border px-4 py-3 text-sm bg-slate-900 border-border text-primary"
-    />
+    <SearchInput
+  v-model="search"
+  placeholder="Search books by title, author, or category..."
+/>
 
     <!-- TABLE -->
     <div class="overflow-hidden rounded-xl border border-border">
@@ -34,15 +25,15 @@
         <!-- HEADER -->
         <TableHeader class="bg-slate-800">
           <TableRow class="border-b border-slate-800">
-            <TableHead class="text-left text-muted th-title"> Title </TableHead>
+            <TableHead class="text-left text-muted"> Title </TableHead>
 
-            <TableHead class="text-left text-muted th-author"> Author </TableHead>
+            <TableHead class="text-left text-muted"> Author </TableHead>
 
-            <TableHead class="text-left text-muted th-category"> Category </TableHead>
+            <TableHead class="text-left text-muted"> Category </TableHead>
 
-            <TableHead class="text-left text-muted th-status"> Status </TableHead>
+            <TableHead class="text-left text-muted"> Status </TableHead>
 
-            <TableHead class="text-right text-muted th-actions"> Actions </TableHead>
+            <TableHead class="text-right text-muted"> Actions </TableHead>
           </TableRow>
         </TableHeader>
 
@@ -77,7 +68,7 @@
 
             <!-- CATEGORY -->
             <TableCell class="bg-slate-900">
-              <Badge class="px-3 py-1 rounded-full badge-default badge-indigo">
+              <Badge class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-500">
                 {{ getCategoryName(book.categoryId) }}
               </Badge>
             </TableCell>
@@ -98,25 +89,10 @@
 
             <!-- ACTIONS -->
             <TableCell class="text-right bg-slate-900">
-              <div class="flex justify-end gap-3 text-secondary">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  class="hover:bg-transparent hover:text-primary"
-                  @click="$router.push(`/books/edit/${book.id}`)"
-                >
-                  <Pencil :size="18" />
-                </Button>
-
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  class="hover:bg-transparent hover:text-red-400"
-                  @click="removeBook(book.id)"
-                >
-                  <Trash2 :size="18" />
-                </Button>
-              </div>
+              <TableActions
+  :editLink="`/books/edit/${book.id}`"
+  @delete="removeBook(book.id)"
+/>
             </TableCell>
           </TableRow>
         </TableBody>
@@ -128,14 +104,10 @@
   import { ref, computed, onMounted } from 'vue';
   import { BookService } from '@/services/BookService';
   import type { Book } from '@/models/book';
-  import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
   import { CategoryService } from '@/services/CategoryService';
   import type { Category } from '@/models/category';
   import type { Author } from '@/models/author';
   import { AuthorService } from '@/services/AuthorService';
-  import { RouterLink } from 'vue-router';
-  import { Button } from '@/components/ui/button';
-  import { Input } from '@/components/ui/input';
   import {
     Table,
     TableBody,
@@ -146,6 +118,9 @@
   } from '@/components/ui/table';
 
   import { Badge } from '@/components/ui/badge';
+  import TableActions from "@/components/TableActions.vue"
+  import SearchInput from '@/components/SearchInput.vue';
+  import AddButton from "@/components/AddButton.vue"
 
   const authors = ref<Author[]>([]);
   const categories = ref<Category[]>([]);

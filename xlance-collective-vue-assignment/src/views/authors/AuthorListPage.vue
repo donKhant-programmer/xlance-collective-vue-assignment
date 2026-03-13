@@ -10,23 +10,14 @@
         </p>
       </div>
 
-      <Button
-        as-child
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-primary bg-blue transition-colors"
-      >
-        <RouterLink to="/authors/add" class="inline-flex items-center gap-2">
-          <Plus :size="20" />
-          <span>Add Author</span>
-        </RouterLink>
-      </Button>
+      <AddButton to="/authors/add" label="Add Author" />
     </div>
 
     <!-- SEARCH -->
-    <Input
-      v-model="search"
-      placeholder="Filter by name or nationality..."
-      class="w-full max-w-lg mt-6 rounded-xl border border-border px-4 py-3 text-sm text-primary bg-slate-900 outline-none appearance-none"
-    />
+    <SearchInput
+  v-model="search"
+  placeholder="Filter by name or nationality..."
+/>
 
     <!-- TABLE -->
     <div class="overflow-hidden rounded-xl border border-border">
@@ -34,13 +25,13 @@
         <!-- HEADER -->
         <TableHeader class="bg-slate-800">
           <TableRow class="border-b border-border">
-            <TableHead class="text-left text-muted w-2fr"> Author </TableHead>
+            <TableHead class="text-left text-muted"> Author </TableHead>
 
-            <TableHead class="text-left text-muted w-1-3fr"> Nationality </TableHead>
+            <TableHead class="text-left text-muted"> Nationality </TableHead>
 
-            <TableHead class="text-left text-muted w-1-3fr"> Catalog Size </TableHead>
+            <TableHead class="text-left text-muted"> Catalog Size </TableHead>
 
-            <TableHead class="text-right text-muted w-140px"> Actions </TableHead>
+            <TableHead class="text-right text-muted"> Actions </TableHead>
           </TableRow>
         </TableHeader>
 
@@ -55,7 +46,7 @@
             <TableCell class="bg-slate-900">
               <div class="flex items-center gap-3">
                 <div
-                  class="h-10 w-10 rounded-full flex items-center justify-center overflow-hidden bg-[var(--color-slate-800)]"
+                  class="h-10 w-10 rounded-full flex items-center justify-center overflow-hidden bg-slate-800"
                 >
                   <img
                     v-if="author.imageUrl"
@@ -76,7 +67,6 @@
             <!-- NATIONALITY -->
             <TableCell class="bg-slate-900">
               <Badge class="px-3 py-1 rounded-lg bg-slate-800 border-slate-700 text-secondary">
-                >
                 {{ author.nationality }}
               </Badge>
             </TableCell>
@@ -140,6 +130,8 @@
     TableRow,
   } from '@/components/ui/table';
   import { Badge } from '@/components/ui/badge';
+  import SearchInput from "@/components/SearchInput.vue";
+  import AddButton from "@/components/AddButton.vue"
 
   const search = ref('');
   const authors = ref<Author[]>([]);

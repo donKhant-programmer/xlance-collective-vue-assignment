@@ -7,23 +7,14 @@
         <p class="mt-2 max-w-xl text-secondary text-base">Organize and classify your collection.</p>
       </div>
 
-      <Button
-        as-child
-        class="inline-flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-2.5 text-primary bg-blue"
-      >
-        <RouterLink to="/categories/add" class="inline-flex items-center gap-2">
-          <Plus :size="20" />
-          <span>Add Category</span>
-        </RouterLink>
-      </Button>
+      <AddButton to="/categories/add" label="Add category" />
     </div>
 
     <!-- SEARCH -->
-    <Input
-      v-model="search"
-      placeholder="Search categories by name or description..."
-      class="w-full max-w-lg mt-6 rounded-xl border px-4 py-3 text-sm bg-slate-900 border-border text-primary"
-    />
+    <SearchInput
+  v-model="search"
+  placeholder="Search categories by name or description..."
+/>
 
     <!-- TABLE -->
     <div class="overflow-hidden rounded-xl border border-border">
@@ -31,11 +22,11 @@
         <!-- HEADER -->
         <TableHeader class="bg-slate-800">
           <TableRow class="border-b border-border">
-            <TableHead class="text-muted th-category-name">Category Name</TableHead>
-            <TableHead class="text-muted th-description">Description</TableHead>
-            <TableHead class="text-muted th-count">Book Count</TableHead>
-            <TableHead class="text-muted th-updated">Last Updated</TableHead>
-            <TableHead class="text-muted th-actions">Actions</TableHead>
+            <TableHead class="text-muted">Category Name</TableHead>
+            <TableHead class="text-muted">Description</TableHead>
+            <TableHead class="text-muted">Book Count</TableHead>
+            <TableHead class="text-muted">Last Updated</TableHead>
+            <TableHead class="text-muted">Actions</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -102,11 +93,10 @@
 </template>
 <script setup lang="ts">
   import { ref, computed, onMounted } from 'vue';
-  import { Plus, Pencil, Trash2 } from 'lucide-vue-next';
+  import { Pencil, Trash2 } from 'lucide-vue-next';
   import { CategoryService } from '@/services/CategoryService';
   import type { Category } from '@/models/category';
   import { Button } from '@/components/ui/button';
-  import { Input } from '@/components/ui/input';
   import {
     Table,
     TableBody,
@@ -116,6 +106,7 @@
     TableRow,
   } from '@/components/ui/table';
   import { Badge } from '@/components/ui/badge';
+  import AddButton from "@/components/AddButton.vue"
 
   const search = ref('');
   const categories = ref<Category[]>([]);
