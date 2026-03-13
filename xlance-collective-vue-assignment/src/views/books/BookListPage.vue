@@ -1,5 +1,5 @@
 <template>
-  <section class="space-y-6 p-8">
+  <section class="space-y-6 p-4 md:p-6 lg:p-8">
     <!-- HEADER -->
     <div class="flex items-start justify-between">
       <div>
@@ -14,10 +14,7 @@
     </div>
 
     <!-- SEARCH -->
-    <SearchInput
-  v-model="search"
-  placeholder="Search books by title, author, or category..."
-/>
+    <SearchInput v-model="search" placeholder="Search books by title, author, or category..." />
 
     <!-- TABLE -->
     <div class="overflow-hidden rounded-xl border border-border">
@@ -76,12 +73,8 @@
             <!-- STATUS -->
             <TableCell class="bg-slate-900">
               <Badge
-                class="px-3 py-1 rounded-full"
-                :class="
-                  book.status === 'AVAILABLE'
-                    ? 'px-3 py-1 rounded-full badge-default badge-green'
-                    : 'px-3 py-1 rounded-full badge-default badge-yellow'
-                "
+                class="px-3 py-1 rounded-full badge-default"
+                :class="book.status === 'AVAILABLE' ? 'badge-green' : 'badge-yellow'"
               >
                 {{ book.status }}
               </Badge>
@@ -89,10 +82,7 @@
 
             <!-- ACTIONS -->
             <TableCell class="text-right bg-slate-900">
-              <TableActions
-  :editLink="`/books/edit/${book.id}`"
-  @delete="removeBook(book.id)"
-/>
+              <TableActions :editLink="`/books/edit/${book.id}`" @delete="removeBook(book.id)" />
             </TableCell>
           </TableRow>
         </TableBody>
@@ -118,9 +108,9 @@
   } from '@/components/ui/table';
 
   import { Badge } from '@/components/ui/badge';
-  import TableActions from "@/components/TableActions.vue"
+  import TableActions from '@/components/TableActions.vue';
   import SearchInput from '@/components/SearchInput.vue';
-  import AddButton from "@/components/AddButton.vue"
+  import AddButton from '@/components/AddButton.vue';
 
   const authors = ref<Author[]>([]);
   const categories = ref<Category[]>([]);

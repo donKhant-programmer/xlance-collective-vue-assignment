@@ -2,8 +2,10 @@
   <div class="min-h-screen flex flex-col bg-page">
     <AppNavbar />
 
-    <main class="flex-1 px-40 py-0">
-      <router-view />
+    <main class="flex-1">
+      <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8">
+        <router-view />
+      </div>
     </main>
 
     <AppFooter />

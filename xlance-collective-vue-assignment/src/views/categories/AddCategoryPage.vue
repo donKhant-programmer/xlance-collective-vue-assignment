@@ -20,70 +20,19 @@
       <!-- Header -->
       <div class="mb-6">
         <h1 class="text-3xl font-bold text-primary">Add New Category</h1>
-        <p class="text-sm text-secondary">Organize your collection by defining a new genre or classification.</p>
+        <p class="text-sm text-secondary">
+          Organize your collection by defining a new genre or classification.
+        </p>
       </div>
 
-      <!-- FORM -->
-      <form
-        class="p-10 rounded-2xl bg-card border border-border space-y-8"
-        @submit.prevent="submitForm"
-      >
-        <!-- CATEGORY NAME -->
-        <div class="space-y-2">
-          <label class="text-sm font-medium flex items-center gap-1 text-primary">
-            Category Name
-            <span class="text-[var(--color-red)]">*</span>
-          </label>
-
-          <Input
-            v-model="form.name"
-            placeholder="e.g., Science Fiction"
-            class="w-full rounded-xl border px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
-          />
-        </div>
-
-        <!-- DESCRIPTION -->
-        <div class="space-y-2">
-          <label class="text-sm font-medium text-primary">
-            Description
-            <span class="text-secondary text-xs">(Optional)</span>
-          </label>
-
-          <Textarea
-            v-model="form.description"
-            placeholder="Briefly describe what books belong in this category..."
-            class="w-full h-28 rounded-xl px-4 py-3 bg-form-field border-border text-primary placeholder:text-primary placeholder:opacity-70"
-          />
-        </div>
-
-        <!-- TIP BOX -->
-        <div class="flex items-start gap-2 rounded-xl p-3 bg-cardBg">
-          <img src="/svg/info-circle.svg" class="h-4 w-4 mt-0.5 flex-shrink-0" />
-
-          <div class="flex flex-col gap-4">
-            <span class="font-medium text-xs text-blue-500"> Tip </span>
-
-            <span class="text-xs font-normal text-secondary">
-              Good category names are short and descriptive. You can later assign tags to specific
-              books within these categories.
-            </span>
-          </div>
-        </div>
-
-        <!-- BUTTONS -->
-        <div class="flex justify-end items-center gap-6 pt-4">
+      <!-- REUSABLE FORM COMPONENT -->
+      <CategoryForm v-model="form" @submit="handleSubmit">
+        <template #cancel>
           <RouterLink to="/categories" class="text-sm font-medium text-secondary hover:underline">
             Cancel
           </RouterLink>
-
-          <Button
-            type="submit"
-            class="flex items-center gap-2 px-8 py-2.5 rounded-xl text-primary font-medium hover:opacity-90 bg-blue-500 hover:bg-blue-600"
-          >
-            Create Category
-          </Button>
-        </div>
-      </form>
+        </template>
+      </CategoryForm>
 
       <!-- SYSTEM INFO -->
       <div class="flex justify-center items-center gap-2 text-sm text-secondary mt-6 text-center">
@@ -99,9 +48,7 @@
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { CategoryService } from '@/services/CategoryService';
-  import { Input } from '@/components/ui/input';
-  import { Textarea } from '@/components/ui/textarea';
-  import { Button } from '@/components/ui/button';
+  import CategoryForm from '@/views/categories/CategoryForm.vue';
 
   const router = useRouter();
 
@@ -110,12 +57,12 @@
     description: '',
   });
 
-  async function submitForm(): Promise<void> {
-    if (!form.value.name) return;
+  async function handleSubmit(formData: typeof form.value): Promise<void> {
+    if (!formData.name) return;
 
     await CategoryService.create({
-      name: form.value.name,
-      description: form.value.description,
+      name: formData.name,
+      description: formData.description,
       active: true,
     });
 

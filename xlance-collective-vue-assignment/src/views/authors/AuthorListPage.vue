@@ -14,10 +14,7 @@
     </div>
 
     <!-- SEARCH -->
-    <SearchInput
-  v-model="search"
-  placeholder="Filter by name or nationality..."
-/>
+    <SearchInput v-model="search" placeholder="Filter by name or nationality..." />
 
     <!-- TABLE -->
     <div class="overflow-hidden rounded-xl border border-border">
@@ -130,8 +127,8 @@
     TableRow,
   } from '@/components/ui/table';
   import { Badge } from '@/components/ui/badge';
-  import SearchInput from "@/components/SearchInput.vue";
-  import AddButton from "@/components/AddButton.vue"
+  import SearchInput from '@/components/SearchInput.vue';
+  import AddButton from '@/components/AddButton.vue';
 
   const search = ref('');
   const authors = ref<Author[]>([]);

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Input } from '@/components/ui/input'
+  import { Input } from '@/components/ui/input';
 
-const model = defineModel<string>()
+  const model = defineModel<string>();
 
-defineProps<{
-  placeholder?: string
-}>()
+  defineProps<{
+    placeholder?: string;
+  }>();
 </script>
 
 <template>

@@ -32,14 +32,14 @@
   </section>
 </template>
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import AuthorForm from '@/views/authors/AuthorForm.vue';
-import { AuthorService } from '@/services/AuthorService';
+  import { useRouter } from 'vue-router';
+  import AuthorForm from '@/views/authors/AuthorForm.vue';
+  import { AuthorService } from '@/services/AuthorService';
 
-const router = useRouter();
+  const router = useRouter();
 
-async function handleSubmit(data: any) {
-  await AuthorService.add({ id: 0, ...data, genre: '', catalog: 0 });
-  router.push('/authors');
-}
+  async function handleSubmit(data: any) {
+    await AuthorService.add({ id: 0, ...data, genre: '', catalog: 0 });
+    router.push('/authors');
+  }
 </script>

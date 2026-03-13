@@ -11,10 +11,7 @@
     </div>
 
     <!-- SEARCH -->
-    <SearchInput
-  v-model="search"
-  placeholder="Search categories by name or description..."
-/>
+    <SearchInput v-model="search" placeholder="Search categories by name or description..." />
 
     <!-- TABLE -->
     <div class="overflow-hidden rounded-xl border border-border">
@@ -106,7 +103,8 @@
     TableRow,
   } from '@/components/ui/table';
   import { Badge } from '@/components/ui/badge';
-  import AddButton from "@/components/AddButton.vue"
+  import AddButton from '@/components/AddButton.vue';
+  import SearchInput from '@/components/SearchInput.vue';
 
   const search = ref('');
   const categories = ref<Category[]>([]);
