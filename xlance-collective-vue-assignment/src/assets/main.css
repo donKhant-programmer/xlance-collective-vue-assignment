@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-bg-slate-900: #101922;
+    --color-bg-card: #192633;
+    --color-border: #324d67;
+    --color-blue: #137fec;
+    --color-indigo-100: #e0e7ff;
+    --color-indigo-500: #6366f1;
+    --color-green-400: #34d399;
+    --color-yellow-400: #facc15;
+    --color-slate-800: #1e293b;
+    --color-slate-900: #0f172a;
+    --color-slate-700: #334155;
+
+    --color-badge-bg: #c1c0d9;
+    --color-input-bg: #111a22;
+
+    --color-red: #ef4444;
+
+    /* Map shadcn tokens to your colors */
+
+    --background: 215 32% 10%;
+    --foreground: 210 40% 96%;
+
+    --card: 215 32% 16%;
+    --card-foreground: 210 40% 96%;
+
+    --primary: 210 90% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 20% 22%;
+    --secondary-foreground: 210 40% 96%;
+
+    --muted: 215 16% 30%;
+    --muted-foreground: 215 16% 60%;
+
+    --accent: 215 20% 22%;
+    --accent-foreground: 210 40% 96%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 210 40% 96%;
+
+    --border: 215 28% 30%;
+    --input: 215 28% 30%;
+    --ring: 210 90% 50%;
+  }
+}
+
+@layer utilities {
+  /* navigation */
+  .nav-link {
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .nav-link:hover {
+    color: var(--color-blue);
+  }
+
+  .nav-link-active {
+    color: var(--color-blue);
+  }
+
+  /* select hover */
+  .select-item-hover {
+    color: var(--color-text-primary);
+  }
+
+  .select-item-hover:hover {
+    background-color: var(--color-blue);
+    color: var(--color-text-primary);
+  }
+
+  /* badges */
+  .badge-default {
+    background-color: var(--color-badge-bg);
+  }
+
+  .badge-indigo {
+    color: var(--color-indigo-500);
+  }
+
+  .badge-green {
+    color: var(--color-green-400);
+  }
+
+  .badge-yellow {
+    color: var(--color-yellow-400);
+  }
+
+  /* helpers */
+  .progress-bg {
+    background-color: var(--color-slate-800);
+  }
+
+  .progress-fill {
+    background-color: var(--color-blue);
+  }
+
+  .table-row-bg {
+    background-color: var(--color-slate-900);
+  }
+
+  /* button helper */
+  .btn-blue {
+    background-color: var(--color-blue);
+  }
+
+  .input-bg {
+    background-color: var(--color-input-bg);
+  }
+
+  .input-border {
+    border-color: var(--color-border);
+  }
+
+  .input-text {
+    color: var(--color-text-primary);
+  }
+
+  /* hover text blue for links */
+  .hover-text-blue:hover {
+    color: var(--color-blue);
+  }
+}
